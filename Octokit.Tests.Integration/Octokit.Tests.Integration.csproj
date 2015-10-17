@@ -129,9 +129,17 @@
     <Compile Include="SelfTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Octokit.Api\Octokit.Api.csproj">
+      <Project>{28a12aa2-3d92-4a00-8603-fd552685a64e}</Project>
+      <Name>Octokit.Api</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Octokit.Reactive\Octokit.Reactive.csproj">
       <Project>{674b69b8-0780-4d54-ae2b-c15821fa51cb}</Project>
       <Name>Octokit.Reactive</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Octokit.Spi\Octokit.Spi.csproj">
+      <Project>{66f668a4-26b5-4ae3-b684-93038093ffb0}</Project>
+      <Name>Octokit.Spi</Name>
     </ProjectReference>
     <ProjectReference Include="..\Octokit.Tests\Octokit.Tests.csproj">
       <Project>{149448d4-c2f2-4df9-86bd-03e3272f093b}</Project>

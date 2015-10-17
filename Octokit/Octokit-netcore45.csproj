@@ -47,6 +47,33 @@
     <DocumentationFile>bin\Release\NetCore45\Octokit.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\Octokit.Api\Helpers\CollectionExtensions.cs">
+      <Link>Helpers\CollectionExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Helpers\Ensure.cs">
+      <Link>Helpers\Ensure.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Helpers\ParameterAttribute.cs">
+      <Link>Helpers\ParameterAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Helpers\UnixTimeStampExtensions.cs">
+      <Link>Helpers\UnixTimeStampExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Http\ApiInfo.cs">
+      <Link>Http\ApiInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Http\RateLimit.cs">
+      <Link>Http\RateLimit.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Http\IApiInfo.cs">
+      <Link>Http\IApiInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Http\IApiInfoProvider.cs">
+      <Link>Http\IApiInfoProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Http\IRateLimit.cs">
+      <Link>Http\IRateLimit.cs</Link>
+    </Compile>
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
@@ -142,12 +169,10 @@
     <Compile Include="Exceptions\ForbiddenException.cs" />
     <Compile Include="Exceptions\LoginAttemptsExceededException.cs" />
     <Compile Include="Exceptions\RateLimitExceededException.cs" />
-    <Compile Include="Helpers\CollectionExtensions.cs" />
     <Compile Include="Helpers\EnumExtensions.cs" />
     <Compile Include="Helpers\IApiPagination.cs" />
     <Compile Include="Helpers\IReadOnlyPagedCollection.cs" />
     <Compile Include="Helpers\ModelExtensions.cs" />
-    <Compile Include="Helpers\ParameterAttribute.cs" />
     <Compile Include="Helpers\ReflectionExtensions.cs" />
     <Compile Include="Helpers\TwoFactorChallengeResult.cs" />
     <Compile Include="Helpers\UriExtensions.cs" />
@@ -161,17 +186,14 @@
     <Compile Include="Http\IHttpClient.cs" />
     <Compile Include="Http\InMemoryCredentialStore.cs" />
     <Compile Include="Http\JsonHttpPipeline.cs" />
-    <Compile Include="Http\RateLimit.cs" />
     <Compile Include="Http\ReadOnlyPagedCollection.cs" />
     <Compile Include="IGitHubClient.cs" />
     <Compile Include="Http\ApiInfoExtensions.cs" />
     <Compile Include="Http\ApiInfoParser.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Http\ApiInfo.cs" />
     <Compile Include="Http\IJsonSerializer.cs" />
     <Compile Include="Http\SimpleJsonSerializer.cs" />
-    <Compile Include="Helpers\Ensure.cs" />
     <Compile Include="GitHubClient.cs" />
     <Compile Include="Http\Connection.cs">
       <SubType>Code</SubType>
@@ -332,7 +354,6 @@
     <Compile Include="Models\Response\AdditionsAndDeletions.cs" />
     <Compile Include="Models\Response\CodeFrequency.cs" />
     <Compile Include="Models\Response\CommitActivity.cs" />
-    <Compile Include="Helpers\UnixTimeStampExtensions.cs" />
     <Compile Include="Models\Response\PullRequestCommit.cs" />
     <Compile Include="Exceptions\RepositoryExistsException.cs" />
     <Compile Include="Helpers\ApiErrorExtensions.cs" />
@@ -404,7 +425,6 @@
     <Compile Include="Models\Response\MiscellaneousRateLimit.cs" />
     <Compile Include="Exceptions\RepositoryFormatException.cs" />
     <Compile Include="Http\RequestBody.cs" />
-    <Compile Include="Http\IApiInfoProvider.cs" />
     <Compile Include="Models\Response\Meta.cs" />
     <Compile Include="Models\Common\Committer.cs" />
   </ItemGroup>

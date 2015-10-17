@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,6 +14,8 @@
     <FileAlignment>512</FileAlignment>
     <CodeAnalysisCulture>en-US</CodeAnalysisCulture>
     <LangVersion>5</LangVersion>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -83,7 +86,6 @@
     <Compile Include="Helpers\PropertyOrField.cs" />
     <Compile Include="Helpers\SerializeNullAttribute.cs" />
     <Compile Include="Http\HttpMessageHandlerFactory.cs" />
-    <Compile Include="Http\IApiInfoProvider.cs" />
     <Compile Include="Http\ProductHeaderValue.cs" />
     <Compile Include="Http\RequestBody.cs" />
     <Compile Include="Models\Request\GistFileUpdate.cs" />
@@ -162,7 +164,6 @@
     <Compile Include="Clients\WatchedClient.cs" />
     <Compile Include="Clients\IFollowersClient.cs" />
     <Compile Include="Clients\FollowersClient.cs" />
-    <Compile Include="Helpers\UnixTimeStampExtensions.cs" />
     <Compile Include="Models\Request\BaseSearchRequest.cs" />
     <Compile Include="Helpers\EnumExtensions.cs">
       <SubType>Code</SubType>
@@ -264,7 +265,6 @@
     <Compile Include="Clients\IAssigneesClient.cs" />
     <Compile Include="Clients\IIssuesClient.cs" />
     <Compile Include="Clients\IMilestonesClient.cs" />
-    <Compile Include="Helpers\ParameterAttribute.cs" />
     <Compile Include="Helpers\ReflectionExtensions.cs" />
     <Compile Include="Models\Request\EditRepositoryHook.cs" />
     <Compile Include="Models\Request\NewTeam.cs" />
@@ -322,7 +322,6 @@
     <Compile Include="Helpers\ApiUrls.cs" />
     <Compile Include="Helpers\AuthorizationExtensions.cs" />
     <Compile Include="Helpers\TwoFactorChallengeResult.cs" />
-    <Compile Include="Http\RateLimit.cs" />
     <Compile Include="Models\Response\Account.cs" />
     <Compile Include="Models\Response\ApiError.cs" />
     <Compile Include="Models\Response\ApiErrorDetail.cs" />
@@ -343,7 +342,6 @@
     <Compile Include="Exceptions\ForbiddenException.cs" />
     <Compile Include="Exceptions\LoginAttemptsExceededException.cs" />
     <Compile Include="Exceptions\RateLimitExceededException.cs" />
-    <Compile Include="Helpers\CollectionExtensions.cs" />
     <Compile Include="Helpers\UriExtensions.cs" />
     <Compile Include="Http\ApiConnection.cs" />
     <Compile Include="Http\IApiConnection.cs" />
@@ -371,7 +369,6 @@
     <Compile Include="Http\ApiInfoParser.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Http\ApiInfo.cs" />
     <Compile Include="Authentication\BasicAuthenticator.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -382,7 +379,6 @@
     <Compile Include="Authentication\TokenAuthenticator.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Helpers\Ensure.cs" />
     <Compile Include="GitHubClient.cs" />
     <Compile Include="Authentication\AuthenticationType.cs" />
     <Compile Include="Http\Connection.cs">
@@ -443,6 +439,12 @@
   <UsingTask TaskName="DocPlagiarizerTask" AssemblyFile="..\packages\DocPlagiarizer.0.1.2\tools\DocPlagiarizer.dll" />
   <Target Name="DocPlagiarizerTarget" BeforeTargets="Build">
     <DocPlagiarizerTask />
+  </Target>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets. -->

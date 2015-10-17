@@ -13,9 +13,9 @@ namespace Octokit
     [Serializable]
 #endif
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
-    public class RateLimit
+    public class RateLimit : IRateLimit
 #if !NETFX_CORE
-        : ISerializable
+        , ISerializable
 #endif
     {
         public RateLimit() {}
@@ -92,7 +92,7 @@ namespace Octokit
         }
 #endif
 
-        internal string DebuggerDisplay
+        public string DebuggerDisplay
         {
             get
             {
@@ -104,7 +104,7 @@ namespace Octokit
         /// Allows you to clone RateLimit
         /// </summary>
         /// <returns>A clone of <seealso cref="RateLimit"/></returns>
-        public RateLimit Clone()
+        public IRateLimit Clone()
         {
             return new RateLimit
             {

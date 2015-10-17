@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-#if NET_45
 using System.Collections.ObjectModel;
-#endif
+
+//#if NET_45
+//using System.Collections.ObjectModel;
+//#endif
 
 namespace Octokit
 {
     /// <summary>
     /// Extra information returned as part of each api response.
     /// </summary>
-    public class ApiInfo
+    public class ApiInfo : IApiInfo
     {
         public ApiInfo(IDictionary<string, Uri> links,
             IList<string> oauthScopes,
             IList<string> acceptedOauthScopes,
             string etag,
-            RateLimit rateLimit)
+            IRateLimit rateLimit)
         {
             Ensure.ArgumentNotNull(links, "links");
             Ensure.ArgumentNotNull(oauthScopes, "oauthScopes");
@@ -50,7 +52,7 @@ namespace Octokit
         /// <summary>
         /// Information about the API rate limit
         /// </summary>
-        public RateLimit RateLimit { get; private set; }
+        public IRateLimit RateLimit { get; private set; }
 
         /// <summary>
         /// Allows you to clone ApiInfo 

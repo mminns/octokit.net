@@ -22,7 +22,7 @@ namespace Octokit
         Justification = "These exceptions are specific to the GitHub API and not general purpose exceptions")]
     public class RateLimitExceededException : ForbiddenException
     {
-        readonly RateLimit _rateLimit;
+        readonly IRateLimit _rateLimit;
 
         /// <summary>
         /// Constructs an instance of RateLimitExceededException

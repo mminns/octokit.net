@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Octokit
 {
-    internal static class CollectionExtensions
+    public static class CollectionExtensions
     {
         public static TValue SafeGet<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> dictionary, TKey key)
         {
