@@ -83,3 +83,4 @@ tools/xunit.runner.console
 # New VS Test Runner creates arbitrary folders with PDBs
 *.pdb
 pingme.txt
+Backup/
