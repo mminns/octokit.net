@@ -429,7 +429,16 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Octokit.Api\Octokit.Api.csproj">
+      <Project>{28a12aa2-3d92-4a00-8603-fd552685a64e}</Project>
+      <Name>Octokit.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Octokit.Spi\Octokit.Spi.csproj">
+      <Project>{66f668a4-26b5-4ae3-b684-93038093ffb0}</Project>
+      <Name>Octokit.Spi</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="DocPlagiarizerTask" AssemblyFile="..\packages\DocPlagiarizer.0.1.2\tools\DocPlagiarizer.dll" />
   <Target Name="DocPlagiarizerTarget" BeforeTargets="Build">
