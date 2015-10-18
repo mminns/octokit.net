@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SolutionInfo.cs">
+      <Link>Properties\SolutionInfo.cs</Link>
+    </Compile>
     <Compile Include="Http\IApiInfo.cs" />
     <Compile Include="Http\IApiInfoProvider.cs" />
     <Compile Include="Http\IRateLimit.cs" />
