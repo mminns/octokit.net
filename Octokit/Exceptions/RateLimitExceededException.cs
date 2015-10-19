@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using Octokit.Http;
+using Octokit.Internal;
 
 namespace Octokit
 {
@@ -29,7 +30,8 @@ namespace Octokit
         /// Constructs an instance of RateLimitExceededException
         /// </summary>
         /// <param name="response">The HTTP payload from the server</param>
-        public RateLimitExceededException(IResponse response) : this(response, null)
+        /// <param name="jsonSerializer">Use the deserialize error response payload.</param>
+        public RateLimitExceededException(IResponse response, IJsonSerializer jsonSerializer) : this(response, null, jsonSerializer)
         {
         }
 
@@ -38,7 +40,8 @@ namespace Octokit
         /// </summary>
         /// <param name="response">The HTTP payload from the server</param>
         /// <param name="innerException">The inner exception</param>
-        public RateLimitExceededException(IResponse response, Exception innerException) : base(response, innerException)
+        /// <param name="jsonSerializer">Use the deserialize error response payload.</param>
+        public RateLimitExceededException(IResponse response, Exception innerException, IJsonSerializer jsonSerializer) : base(response, innerException, jsonSerializer)
         {
             Ensure.ArgumentNotNull(response, "response");
 

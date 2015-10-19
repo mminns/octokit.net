@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace Octokit
 {
-    internal static class StringExtensions
+    public static class StringExtensions
     {
         public static bool IsBlank(this string value)
         {
@@ -117,7 +117,7 @@ namespace Octokit
 #endif
             RegexOptions.IgnoreCase);
 
-        internal static bool IsNameWithOwnerFormat(this string input)
+        public static bool IsNameWithOwnerFormat(this string input)
         {
             return nameWithOwner.IsMatch(input);
         }

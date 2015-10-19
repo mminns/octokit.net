@@ -18,6 +18,9 @@ namespace Octokit
     /// </summary>
     public class Connection : IConnection
     {
+        // This needs to be hard-coded for translating GitHub error messages.
+        private static readonly IJsonSerializer _jsonSerializer = new SimpleJsonSerializer();
+
         static readonly Uri _defaultGitHubApiUrl = GitHubClient.GitHubApiUrl;
         static readonly ICredentialStore _anonymousCredentials = new InMemoryCredentialStore(Octokit.Credentials.Anonymous);
 
@@ -554,7 +557,7 @@ namespace Octokit
                 { HttpStatusCode.Unauthorized, GetExceptionForUnauthorized },
                 { HttpStatusCode.Forbidden, GetExceptionForForbidden },
                 { HttpStatusCode.NotFound, response => new NotFoundException(response) },
-                { (HttpStatusCode)422, response => new ApiValidationException(response) }
+                { (HttpStatusCode)422, response => new ApiValidationException(response, _jsonSerializer) }
             };
 
         static void HandleErrors(IResponse response)
@@ -567,7 +570,7 @@ namespace Octokit
 
             if ((int)response.StatusCode >= 400)
             {
-                throw new ApiException(response);
+                throw new ApiException(response, _jsonSerializer);
             }
         }
 
@@ -576,18 +579,18 @@ namespace Octokit
             var twoFactorType = ParseTwoFactorType(response);
 
             return twoFactorType == TwoFactorType.None
-                ? new AuthorizationException(response)
-                : new TwoFactorRequiredException(response, twoFactorType);
+                ? new AuthorizationException(response, _jsonSerializer)
+                : new TwoFactorRequiredException(response, twoFactorType, _jsonSerializer);
         }
 
         static Exception GetExceptionForForbidden(IResponse response)
         {
             string body = response.Body as string ?? "";
             return body.Contains("rate limit exceeded")
-                ? new RateLimitExceededException(response)
+                ? new RateLimitExceededException(response, _jsonSerializer)
                 : body.Contains("number of login attempts exceeded")
-                    ? new LoginAttemptsExceededException(response)
-                    : new ForbiddenException(response);
+                    ? new LoginAttemptsExceededException(response, _jsonSerializer)
+                    : new ForbiddenException(response, _jsonSerializer);
         }
 
         internal static TwoFactorType ParseTwoFactorType(IResponse restResponse)

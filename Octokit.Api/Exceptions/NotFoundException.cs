@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Runtime.Serialization;
 using Octokit.Http;
+using Octokit.Internal;
 
 namespace Octokit
 {
@@ -40,7 +41,7 @@ namespace Octokit
         /// <param name="response">The HTTP payload from the server</param>
         /// <param name="innerException">The inner exception</param>
         public NotFoundException(IResponse response, Exception innerException)
-            : base(response, innerException)
+            : base(response, innerException, null)
         {
             Debug.Assert(response != null && response.StatusCode == HttpStatusCode.NotFound,
                 "NotFoundException created with wrong status code");

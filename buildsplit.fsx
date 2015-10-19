@@ -99,7 +99,7 @@ Target "UnitTests" (fun _ ->
 )
 
 Target "SourceLink" (fun _ ->
-    [   "Octokit/Octokit.csproj"; "Octokit/Octokit.csproj"; "Octokit/Octokit.csproj"]
+    [   "Octokit/Octokit.csproj"; "Octokit.Api/Octokit.Api.csproj"; "Octokit.Spi/Octokit.Spi.csproj"]
     |> Seq.iter (fun pf ->
         let proj = VsProj.LoadRelease pf
         let url = "https://raw.githubusercontent.com/mminns/octokit.net/{0}/%var2%"

@@ -28,7 +28,7 @@ namespace Octokit.Tests.Exceptions
             {
                 var inner = new InvalidOperationException();
                 
-                var exception = new ApiException("Shit broke", inner);
+                var exception = new ApiException("Shit broke", inner, new SimpleJsonSerializer());
                 
                 Assert.Equal("Shit broke", exception.Message);
                 Assert.Same(inner, exception.InnerException);
@@ -54,7 +54,7 @@ namespace Octokit.Tests.Exceptions
                     "application/json"
                 );
 
-                var exception = new ApiException(response);
+                var exception = new ApiException(response, new SimpleJsonSerializer());
 
                 Assert.Equal("Validation Failed", exception.ApiError.Message);
                 Assert.Equal("key is already in use", exception.ApiError.Errors.First().Message);
@@ -74,7 +74,7 @@ namespace Octokit.Tests.Exceptions
                     new Dictionary<string, string>(),
                     "application/json");
 
-                var exception = new ApiException(response);
+                var exception = new ApiException(response, new SimpleJsonSerializer());
 
                 Assert.Equal(responseContent, exception.ApiError.Message);
                 Assert.Equal(HttpStatusCode.GatewayTimeout, exception.StatusCode);
@@ -87,8 +87,8 @@ namespace Octokit.Tests.Exceptions
                 response.Body.Returns("test");
 
                 var exception = new ApiException();
-                var anotherException = new ApiException(new Response(HttpStatusCode.ServiceUnavailable, "message1", new Dictionary<string, string>(), "application/json"));
-                var thirdException = new ApiException(new Response(HttpStatusCode.ServiceUnavailable, "message2", new Dictionary<string, string>(), "application/json"));
+                var anotherException = new ApiException(new Response(HttpStatusCode.ServiceUnavailable, "message1", new Dictionary<string, string>(), "application/json"), new SimpleJsonSerializer());
+                var thirdException = new ApiException(new Response(HttpStatusCode.ServiceUnavailable, "message2", new Dictionary<string, string>(), "application/json"), new SimpleJsonSerializer());
 
                 // It's fine if the message is null when there's no response body as long as this doesn't throw.
                 Assert.Null(exception.ApiError.Message);
@@ -107,7 +107,7 @@ namespace Octokit.Tests.Exceptions
                     new Dictionary<string, string>(),
                     "application/json");
 
-                var exception = new ApiException(response);
+                var exception = new ApiException(response, new SimpleJsonSerializer());
 
                 using (var stream = new MemoryStream())
                 {

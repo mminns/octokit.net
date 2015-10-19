@@ -50,12 +50,15 @@
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="Authentication\AuthenticationType.cs" />
+    <Compile Include="Helpers\IApiPagination.cs" />
+    <Compile Include="Helpers\IReadOnlyPagedCollection.cs" />
     <Compile Include="Http\IApiConnection.cs" />
     <Compile Include="Http\IApiInfo.cs" />
     <Compile Include="Http\IApiInfoProvider.cs" />
     <Compile Include="Http\IConnection.cs" />
     <Compile Include="Http\ICredentials.cs" />
     <Compile Include="Http\ICredentialStore.cs" />
+    <Compile Include="Http\IJsonSerializer.cs" />
     <Compile Include="Http\IRateLimit.cs" />
     <Compile Include="Http\IApiResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

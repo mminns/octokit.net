@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
 using System.Threading.Tasks;
+using Octokit.Helpers;
 #if NET_45
 using System.Collections.ObjectModel;
 #endif

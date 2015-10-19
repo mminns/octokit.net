@@ -24,7 +24,7 @@ namespace Octokit.Tests.Exceptions
                 };
                 var response = new Response(HttpStatusCode.Forbidden, null, headers, "application/json");
 
-                var exception = new RateLimitExceededException(response);
+                var exception = new RateLimitExceededException(response, new SimpleJsonSerializer());
 
                 Assert.Equal(HttpStatusCode.Forbidden, exception.StatusCode);
                 Assert.Equal(100, exception.Limit);
@@ -48,7 +48,7 @@ namespace Octokit.Tests.Exceptions
                 };
                 var response = new Response(HttpStatusCode.Forbidden, null, headers, "application/json");
                 
-                var exception = new RateLimitExceededException(response);
+                var exception = new RateLimitExceededException(response, new SimpleJsonSerializer());
 
                 Assert.Equal(HttpStatusCode.Forbidden, exception.StatusCode);
                 Assert.Equal(0, exception.Limit);
@@ -64,7 +64,7 @@ namespace Octokit.Tests.Exceptions
             public void HandlesMissingHeaderValues()
             {
                 var response = new Response(HttpStatusCode.Forbidden, null, new Dictionary<string, string>(), "application/json");
-                var exception = new RateLimitExceededException(response);
+                var exception = new RateLimitExceededException(response, new SimpleJsonSerializer());
 
                 Assert.Equal(HttpStatusCode.Forbidden, exception.StatusCode);
                 Assert.Equal(0, exception.Limit);
@@ -87,7 +87,7 @@ namespace Octokit.Tests.Exceptions
                 };
                 var response = new Response(HttpStatusCode.Forbidden, null, headers, "application/json");
 
-                var exception = new RateLimitExceededException(response);
+                var exception = new RateLimitExceededException(response, new SimpleJsonSerializer());
 
                 using (var stream = new MemoryStream())
                 {

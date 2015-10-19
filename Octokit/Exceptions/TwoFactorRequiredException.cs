@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Runtime.Serialization;
 using Octokit.Http;
+using Octokit.Internal;
 
 namespace Octokit
 {
@@ -37,8 +38,9 @@ namespace Octokit
         /// </summary>
         /// <param name="response">The HTTP payload from the server</param>
         /// <param name="twoFactorType">Expected 2FA response type</param>
-        public TwoFactorRequiredException(IResponse response, TwoFactorType twoFactorType)
-            : base(response, twoFactorType)
+        /// <param name="jsonSerializer">Use the deserialize error response payload.</param>
+        public TwoFactorRequiredException(IResponse response, TwoFactorType twoFactorType, IJsonSerializer jsonSerializer)
+            : base(response, twoFactorType, jsonSerializer)
         {
             Debug.Assert(response != null && response.StatusCode == HttpStatusCode.Unauthorized,
                 "TwoFactorRequiredException status code should be 401");

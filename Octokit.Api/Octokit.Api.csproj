@@ -49,12 +49,26 @@
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="Clients\ApiClient.cs" />
+    <Compile Include="Clients\ApiPagination.cs" />
+    <Compile Include="Exceptions\ApiException.cs" />
+    <Compile Include="Exceptions\NotFoundException.cs" />
+    <Compile Include="Helpers\ApiExtensions.cs" />
     <Compile Include="Helpers\CollectionExtensions.cs" />
     <Compile Include="Helpers\Ensure.cs" />
     <Compile Include="Helpers\ParameterAttribute.cs" />
+    <Compile Include="Helpers\SerializeAsBase64Attribute.cs" />
+    <Compile Include="Helpers\SerializeNullAttribute.cs" />
+    <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Helpers\UnixTimeStampExtensions.cs" />
+    <Compile Include="Http\ApiConnection.cs" />
     <Compile Include="Http\ApiInfo.cs" />
+    <Compile Include="Http\ApiInfoExtensions.cs" />
+    <Compile Include="Http\ApiInfoParser.cs" />
     <Compile Include="Http\RateLimit.cs" />
+    <Compile Include="Http\ReadOnlyPagedCollection.cs" />
+    <Compile Include="Http\Response.cs" />
+    <Compile Include="Models\Response\ApiError.cs" />
+    <Compile Include="Models\Response\ApiErrorDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

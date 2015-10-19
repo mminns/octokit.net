@@ -24,7 +24,7 @@ namespace Octokit.Tests.Exceptions
                     "application/json"
                 );
 
-                var exception = new ApiValidationException(response);
+                var exception = new ApiValidationException(response, new SimpleJsonSerializer());
 
                 Assert.Equal("Validation Failed", exception.ApiError.Message);
                 Assert.Equal("key is already in use", exception.ApiError.Errors.First().Message);
@@ -35,7 +35,7 @@ namespace Octokit.Tests.Exceptions
             {
                 var response = new Response((HttpStatusCode)422, null, new Dictionary<string, string>(), "application/json");
 
-                var exception = new ApiValidationException(response);
+                var exception = new ApiValidationException(response, new SimpleJsonSerializer());
 
                 Assert.Equal("Validation Failed", exception.Message);
             }
@@ -51,7 +51,7 @@ namespace Octokit.Tests.Exceptions
                     new Dictionary<string, string>(),
                     "application/json");
                 
-                var exception = new ApiValidationException(response);
+                var exception = new ApiValidationException(response, new SimpleJsonSerializer());
 
                 using (var stream = new MemoryStream())
                 {

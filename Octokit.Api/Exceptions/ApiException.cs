@@ -17,13 +17,10 @@ namespace Octokit
         Justification = "These exceptions are specific to the GitHub API and not general purpose exceptions")]
     public class ApiException : Exception
     {
-        // This needs to be hard-coded for translating GitHub error messages.
-        static readonly IJsonSerializer _jsonSerializer = new SimpleJsonSerializer();
-
         /// <summary>
         /// Constructs an instance of ApiException
         /// </summary>
-        public ApiException() : this(new Response())
+        public ApiException() : this(new Response(), null)
         {
         }
 
@@ -33,7 +30,7 @@ namespace Octokit
         /// <param name="message">The error message</param>
         /// <param name="httpStatusCode">The HTTP status code from the response</param>
         public ApiException(string message, HttpStatusCode httpStatusCode)
-            : this(GetApiErrorFromExceptionMessage(message), httpStatusCode, null)
+            : this(GetApiErrorFromExceptionMessage(message, null), httpStatusCode, null)
         {
         }
 
@@ -42,8 +39,8 @@ namespace Octokit
         /// </summary>
         /// <param name="message">The error message</param>
         /// <param name="innerException">The inner exception</param>
-        public ApiException(string message, Exception innerException)
-            : this(GetApiErrorFromExceptionMessage(message), 0, innerException)
+        public ApiException(string message, Exception innerException, IJsonSerializer jsonSerializer)
+            : this(GetApiErrorFromExceptionMessage(message, jsonSerializer), 0, innerException)
         {
         }
 
@@ -51,8 +48,8 @@ namespace Octokit
         /// Constructs an instance of ApiException
         /// </summary>
         /// <param name="response">The HTTP payload from the server</param>
-        public ApiException(IResponse response)
-            : this(response, null)
+        public ApiException(IResponse response, IJsonSerializer jsonSerializer)
+            : this(response, null, jsonSerializer)
         {
         }
 
@@ -61,13 +58,13 @@ namespace Octokit
         /// </summary>
         /// <param name="response">The HTTP payload from the server</param>
         /// <param name="innerException">The inner exception</param>
-        public ApiException(IResponse response, Exception innerException)
+        public ApiException(IResponse response, Exception innerException, IJsonSerializer jsonSerializer)
             : base(null, innerException)
         {
             Ensure.ArgumentNotNull(response, "response");
 
             StatusCode = response.StatusCode;
-            ApiError = GetApiErrorFromExceptionMessage(response);
+            ApiError = GetApiErrorFromExceptionMessage(response, jsonSerializer);
             HttpResponse = response;
         }
 
@@ -116,20 +113,21 @@ namespace Octokit
         /// </summary>
         public ApiError ApiError { get; private set; }
 
-        static ApiError GetApiErrorFromExceptionMessage(IResponse response)
+        static ApiError GetApiErrorFromExceptionMessage(IResponse response, IJsonSerializer jsonSerializer)
         {
             string responseBody = response != null ? response.Body as string : null;
-            return GetApiErrorFromExceptionMessage(responseBody);
+            return GetApiErrorFromExceptionMessage(responseBody, jsonSerializer);
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
-        static ApiError GetApiErrorFromExceptionMessage(string responseContent)
+        static ApiError GetApiErrorFromExceptionMessage(string responseContent, IJsonSerializer jsonSerializer)
         {
             try
             {
-                if (!String.IsNullOrEmpty(responseContent))
+                if (!String.IsNullOrEmpty(responseContent)
+                    && jsonSerializer != null)
                 {
-                    return _jsonSerializer.Deserialize<ApiError>(responseContent) ?? new ApiError(responseContent);
+                    return jsonSerializer.Deserialize<ApiError>(responseContent) ?? new ApiError(responseContent);
                 }
             }
             catch (Exception)

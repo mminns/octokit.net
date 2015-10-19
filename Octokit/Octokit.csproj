@@ -84,10 +84,11 @@
     <Compile Include="Helpers\ConcurrentCache.cs" />
     <Compile Include="Helpers\HttpClientExtensions.cs" />
     <Compile Include="Helpers\PropertyOrField.cs" />
-    <Compile Include="Helpers\SerializeNullAttribute.cs" />
+    <Compile Include="Helpers\ReflectionExtensions.cs" />
     <Compile Include="Http\HttpMessageHandlerFactory.cs" />
     <Compile Include="Http\ProductHeaderValue.cs" />
     <Compile Include="Http\RequestBody.cs" />
+    <Compile Include="Http\SimpleJsonSerializer.cs" />
     <Compile Include="Models\Request\GistFileUpdate.cs" />
     <Compile Include="Models\Request\NewMerge.cs" />
     <Compile Include="Models\Request\PublicRepositoryRequest.cs" />
@@ -96,12 +97,12 @@
     <Compile Include="Models\Request\RepositoryRequest.cs" />
     <Compile Include="Models\Request\Signature.cs" />
     <Compile Include="Models\Request\CreateFileRequest.cs" />
-    <Compile Include="Http\Response.cs" />
     <Compile Include="Models\Request\MarkAsReadRequest.cs" />
     <Compile Include="Models\Request\NewDeployKey.cs" />
     <Compile Include="Models\Request\NewRelease.cs" />
     <Compile Include="Models\Request\NotificationsRequest.cs" />
     <Compile Include="Models\Request\CommitRequest.cs" />
+    <Compile Include="Models\Response\Activity.cs" />
     <Compile Include="Models\Response\ActivityPayloads\ActivityPayload.cs" />
     <Compile Include="Models\Response\ActivityPayloads\CommitCommentPayload.cs" />
     <Compile Include="Models\Response\ActivityPayloads\ForkEventPayload.cs" />
@@ -234,7 +235,6 @@
     <Compile Include="Models\Response\ThreadSubscription.cs" />
     <Compile Include="Models\Response\TreeItem.cs" />
     <Compile Include="Models\Response\TreeResponse.cs" />
-    <Compile Include="Models\Response\Activity.cs" />
     <Compile Include="Clients\AssigneesClient.cs" />
     <Compile Include="Clients\CommitsClient.cs" />
     <Compile Include="Clients\CommitStatusClient.cs" />
@@ -261,11 +261,9 @@
     <Compile Include="Clients\OrganizationMembersClient.cs" />
     <Compile Include="Clients\StarredClient.cs" />
     <Compile Include="Clients\TagsClient.cs" />
-    <Compile Include="Exceptions\NotFoundException.cs" />
     <Compile Include="Clients\IAssigneesClient.cs" />
     <Compile Include="Clients\IIssuesClient.cs" />
     <Compile Include="Clients\IMilestonesClient.cs" />
-    <Compile Include="Helpers\ReflectionExtensions.cs" />
     <Compile Include="Models\Request\EditRepositoryHook.cs" />
     <Compile Include="Models\Request\NewTeam.cs" />
     <Compile Include="Models\Request\UpdateTeam.cs" />
@@ -323,14 +321,9 @@
     <Compile Include="Helpers\AuthorizationExtensions.cs" />
     <Compile Include="Helpers\TwoFactorChallengeResult.cs" />
     <Compile Include="Models\Response\Account.cs" />
-    <Compile Include="Models\Response\ApiError.cs" />
-    <Compile Include="Models\Response\ApiErrorDetail.cs" />
     <Compile Include="Models\Response\Application.cs" />
     <Compile Include="Clients\MiscellaneousClient.cs" />
-    <Compile Include="Exceptions\ApiException.cs" />
-    <Compile Include="Helpers\ApiExtensions.cs" />
     <Compile Include="Clients\AuthorizationsClient.cs" />
-    <Compile Include="Clients\ApiPagination.cs" />
     <Compile Include="Clients\NotificationsClient.cs" />
     <Compile Include="Clients\OrganizationsClient.cs" />
     <Compile Include="Authentication\AnonymousAuthenticator.cs" />
@@ -342,16 +335,13 @@
     <Compile Include="Exceptions\LoginAttemptsExceededException.cs" />
     <Compile Include="Exceptions\RateLimitExceededException.cs" />
     <Compile Include="Helpers\UriExtensions.cs" />
-    <Compile Include="Http\ApiConnection.cs" />
     <Compile Include="Http\IHttpClient.cs" />
     <Compile Include="Http\JsonHttpPipeline.cs" />
-    <Compile Include="Http\ReadOnlyPagedCollection.cs" />
     <Compile Include="Http\Credentials.cs" />
     <Compile Include="Http\CredentialsExtensions.cs" />
     <Compile Include="Http\HttpVerb.cs" />
     <Compile Include="Authentication\IAuthenticationHandler.cs" />
     <Compile Include="Http\InMemoryCredentialStore.cs" />
-    <Compile Include="Helpers\IApiPagination.cs" />
     <Compile Include="Clients\IAuthorizationsClient.cs" />
     <Compile Include="IGitHubClient.cs" />
     <Compile Include="Clients\IMiscellaneousClient.cs" />
@@ -359,20 +349,13 @@
     <Compile Include="Clients\INotificationsClient.cs" />
     <Compile Include="Clients\ISshKeysClient.cs" />
     <Compile Include="Clients\IOrganizationsClient.cs" />
-    <Compile Include="Helpers\IReadOnlyPagedCollection.cs" />
     <Compile Include="Clients\IRepositoriesClient.cs" />
     <Compile Include="Clients\IUsersClient.cs" />
-    <Compile Include="Http\ApiInfoExtensions.cs" />
-    <Compile Include="Http\ApiInfoParser.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Authentication\BasicAuthenticator.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Http\ApiResponse.cs" />
-    <Compile Include="Http\IJsonSerializer.cs" />
     <Compile Include="Exceptions\AuthorizationException.cs" />
-    <Compile Include="Http\SimpleJsonSerializer.cs" />
     <Compile Include="Authentication\TokenAuthenticator.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -401,12 +384,10 @@
     <Compile Include="Models\Request\SshKeyUpdate.cs" />
     <Compile Include="Models\Response\User.cs" />
     <Compile Include="Models\Request\UserUpdate.cs" />
-    <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Clients\RepositoriesClient.cs" />
-    <Compile Include="Helpers\SerializeAsBase64Attribute.cs" />
-    <Compile Include="SimpleJson.cs" />
     <Compile Include="Models\Request\NewRepository.cs" />
     <Compile Include="Clients\UsersClient.cs" />
+    <Compile Include="SimpleJson.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CustomDictionary.xml">

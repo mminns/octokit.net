@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace Octokit
+namespace Octokit.Helpers
 {
     /// <summary>
     /// Reflects a collection of data returned from an API that can be paged.

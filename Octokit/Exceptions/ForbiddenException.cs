@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Runtime.Serialization;
 using Octokit.Http;
+using Octokit.Internal;
 
 namespace Octokit
 {
@@ -21,7 +22,8 @@ namespace Octokit
         /// Constructs an instance of ForbiddenException
         /// </summary>
         /// <param name="response">The HTTP payload from the server</param>
-        public ForbiddenException(IResponse response) : this(response, null)
+        /// <param name="jsonSerializer">Used to deserialize error response payloads</param>
+        public ForbiddenException(IResponse response, IJsonSerializer jsonSerializer) : this(response, null, jsonSerializer)
         {
         }
 
@@ -30,8 +32,9 @@ namespace Octokit
         /// </summary>
         /// <param name="response">The HTTP payload from the server</param>
         /// <param name="innerException">The inner exception</param>
-        public ForbiddenException(IResponse response, Exception innerException)
-            : base(response, innerException)
+        /// <param name="jsonSerializer">Used to deserialize error response payloads</param>
+        public ForbiddenException(IResponse response, Exception innerException, IJsonSerializer jsonSerializer)
+            : base(response, innerException, jsonSerializer)
         {
             Debug.Assert(response != null && response.StatusCode == HttpStatusCode.Forbidden,
                 "ForbiddenException created with wrong status code");

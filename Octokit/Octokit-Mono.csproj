@@ -54,6 +54,9 @@
     <Compile Include="..\Octokit.Api\Helpers\UnixTimeStampExtensions.cs">
       <Link>Helpers\UnixTimeStampExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\Octokit.Api\Http\ApiConnection.cs">
+      <Link>Http\ApiConnection.cs</Link>
+    </Compile>
     <Compile Include="..\Octokit.Api\Http\ApiInfo.cs">
       <Link>Http\ApiInfo.cs</Link>
     </Compile>
@@ -253,7 +256,6 @@
     <Compile Include="Exceptions\LoginAttemptsExceededException.cs" />
     <Compile Include="Exceptions\RateLimitExceededException.cs" />
     <Compile Include="Helpers\UriExtensions.cs" />
-    <Compile Include="Http\ApiConnection.cs" />
     <Compile Include="Http\IHttpClient.cs" />
     <Compile Include="Http\JsonHttpPipeline.cs" />
     <Compile Include="Http\ReadOnlyPagedCollection.cs" />
