@@ -171,28 +171,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\StringExtensionsTests.cs" />
     <Compile Include="Clients\RepositoriesClientTests.cs" />
-    <Compile Include="Reactive\AuthorizationExtensionsTests.cs" />
-    <Compile Include="Reactive\ObservableBlobClientTests.cs" />
-    <Compile Include="Reactive\ObservableCommitsClientTests.cs" />
-    <Compile Include="Reactive\ObservableDeploymentsClientTests.cs" />
-    <Compile Include="Reactive\ObservableDeploymentStatusClientTests.cs" />
-    <Compile Include="Reactive\ObservableEventsClientTests.cs" />
-    <Compile Include="Reactive\ObservableFeedsClientTests.cs" />
-    <Compile Include="Reactive\ObservableIssueCommentsClientTests.cs" />
-    <Compile Include="Reactive\ObservableIssuesClientTests.cs" />
-    <Compile Include="Reactive\ObservableMilestonesClientTests.cs" />
-    <Compile Include="Reactive\ObservableOrganizationMembersClientTests.cs" />
-    <Compile Include="Reactive\ObservablePullRequestsClientTests.cs" />
-    <Compile Include="Reactive\ObservableReleasesClientTests.cs" />
-    <Compile Include="Reactive\ObservablePullRequestReviewCommentsClientTests.cs" />
-    <Compile Include="Reactive\ObservableRepositoriesClientTests.cs" />
-    <Compile Include="Reactive\ObservableRepositoryDeployKeysClientTests.cs" />
-    <Compile Include="Reactive\ObservableGistsTests.cs" />
-    <Compile Include="Reactive\ObservableStarredClientTests.cs" />
-    <Compile Include="Reactive\ObservableStatisticsClientTests.cs" />
-    <Compile Include="Reactive\ObservableTreesClientTests.cs" />
-    <Compile Include="Reactive\ObservableFollowersTest.cs" />
-    <Compile Include="Reactive\ObservableUserEmailsClientTests.cs" />
     <Compile Include="SelfTests.cs" />
     <Compile Include="SimpleJsonSerializerTests.cs" />
     <Compile Include="Clients\UsersClientTests.cs" />
@@ -201,10 +179,6 @@
     <ProjectReference Include="..\Octokit.Api\Octokit.Api.csproj">
       <Project>{28a12aa2-3d92-4a00-8603-fd552685a64e}</Project>
       <Name>Octokit.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Octokit.Reactive\Octokit.Reactive.csproj">
-      <Project>{674b69b8-0780-4d54-ae2b-c15821fa51cb}</Project>
-      <Name>Octokit.Reactive</Name>
     </ProjectReference>
     <ProjectReference Include="..\Octokit.Spi\Octokit.Spi.csproj">
       <Project>{66f668a4-26b5-4ae3-b684-93038093ffb0}</Project>
@@ -230,6 +204,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Reactive\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

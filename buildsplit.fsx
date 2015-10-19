@@ -11,11 +11,23 @@ let projectName = "Octokit"
 let projectDescription = "An async-based GitHub API client library for .NET"
 let projectSummary = projectDescription // TODO: write a summary
 
+let projectSpiName = "Octokit.Spi"
+let projectSpiDescription = "An SPI defining an async-based REST API client library for .NET"
+let projectSpiSummary = projectSpiDescription // TODO: write a summary
+
+let projectApiName = "Octokit.Api"
+let projectApiDescription = "An API providing an async-based REST API client library for .NET"
+let projectApiSummary = projectApiDescription // TODO: write a summary
+
 // directories
 let buildDir = "./Octokit/bin"
+let buildSpiDir = "./Octokit.Spi/bin"
+let buildApiDir = "./Octokit.Api/bin"
 let testResultsDir = "./testresults"
 let packagingRoot = "./packaging/"
 let packagingDir = packagingRoot @@ "octokit"
+let packagingSpiDir = packagingRoot @@ "octokit.spi"
+let packagingApiDir = packagingRoot @@ "octokit.api"
 
 let releaseNotes = 
     ReadFile "ReleaseNotes.md"
@@ -87,29 +99,21 @@ Target "UnitTests" (fun _ ->
 )
 
 Target "SourceLink" (fun _ ->
-    [   "Octokit/Octokit.csproj"]
+    [   "Octokit/Octokit.csproj"; "Octokit/Octokit.csproj"; "Octokit/Octokit.csproj"]
     |> Seq.iter (fun pf ->
         let proj = VsProj.LoadRelease pf
-        let url = "https://raw.githubusercontent.com/octokit/octokit.net/{0}/%var2%"
+        let url = "https://raw.githubusercontent.com/mminns/octokit.net/{0}/%var2%"
         SourceLink.Index proj.Compiles proj.OutputFilePdb __SOURCE_DIRECTORY__ url
     )
 )
 
 Target "CreateOctokitPackage" (fun _ ->
     let net45Dir = packagingDir @@ "lib/net45/"
-    let netcore45Dir = packagingDir @@ "lib/netcore45/"
-    let portableDir = packagingDir @@ "lib/portable-net45+wp80+win+wpa81/"
-    CleanDirs [net45Dir; netcore45Dir; portableDir]
+    CleanDirs [net45Dir; ]
 
     CopyFile net45Dir (buildDir @@ "Release/Net45/Octokit.dll")
     CopyFile net45Dir (buildDir @@ "Release/Net45/Octokit.XML")
     CopyFile net45Dir (buildDir @@ "Release/Net45/Octokit.pdb")
-    CopyFile netcore45Dir (buildDir @@ "Release/NetCore45/Octokit.dll")
-    CopyFile netcore45Dir (buildDir @@ "Release/NetCore45/Octokit.XML")
-    CopyFile netcore45Dir (buildDir @@ "Release/NetCore45/Octokit.pdb")
-    CopyFile portableDir (buildDir @@ "Release/Portable/Octokit.dll")
-    CopyFile portableDir (buildDir @@ "Release/Portable/Octokit.XML")
-    CopyFile portableDir (buildDir @@ "Release/Portable/Octokit.pdb")
     CopyFiles packagingDir ["LICENSE.txt"; "README.md"; "ReleaseNotes.md"]
 
     NuGet (fun p -> 
@@ -120,12 +124,57 @@ Target "CreateOctokitPackage" (fun _ ->
             OutputPath = packagingRoot
             Summary = projectSummary
             WorkingDir = packagingDir
-            Version = releaseNotes.AssemblyVersion
+            Version = releaseNotes.AssemblyVersion + "-alpha"
             ReleaseNotes = toLines releaseNotes.Notes
             AccessKey = getBuildParamOrDefault "nugetkey" ""
             Publish = hasBuildParam "nugetkey" }) "octokit.nuspec"
 )
 
+Target "CreateOctokitSpiPackage" (fun _ ->
+    let net45Dir = packagingSpiDir @@ "lib/net45/"
+    CleanDirs [net45Dir; ]
+
+    CopyFile net45Dir (buildSpiDir @@ "Release/Net45/Octokit.Spi.dll")
+    CopyFile net45Dir (buildSpiDir @@ "Release/Net45/Octokit.Spi.XML")
+    CopyFile net45Dir (buildSpiDir @@ "Release/Net45/Octokit.Spi.pdb")
+    CopyFiles packagingDir ["LICENSE.txt"; "README.md"; "ReleaseNotes.md"]
+
+    NuGet (fun p -> 
+        {p with
+            Authors = authors
+            Project = projectSpiName
+            Description = projectSpiDescription
+            OutputPath = packagingRoot
+            Summary = projectSpiSummary
+            WorkingDir = packagingSpiDir
+            Version = releaseNotes.AssemblyVersion + "-alpha"
+            ReleaseNotes = toLines releaseNotes.Notes
+            AccessKey = getBuildParamOrDefault "nugetkey" ""
+            Publish = hasBuildParam "nugetkey" }) "octokit.spi.nuspec"
+)
+
+Target "CreateOctokitApiPackage" (fun _ ->
+    let net45Dir = packagingApiDir @@ "lib/net45/"
+    CleanDirs [net45Dir; ]
+
+    CopyFile net45Dir (buildApiDir @@ "Release/Net45/Octokit.Api.dll")
+    CopyFile net45Dir (buildApiDir @@ "Release/Net45/Octokit.Api.XML")
+    CopyFile net45Dir (buildApiDir @@ "Release/Net45/Octokit.Api.pdb")
+    CopyFiles packagingDir ["LICENSE.txt"; "README.md"; "ReleaseNotes.md"]
+
+    NuGet (fun p -> 
+        {p with
+            Authors = authors
+            Project = projectApiName
+            Description = projectApiDescription
+            OutputPath = packagingRoot
+            Summary = projectApiSummary
+            WorkingDir = packagingApiDir
+            Version = releaseNotes.AssemblyVersion + "-alpha"
+            ReleaseNotes = toLines releaseNotes.Notes
+            AccessKey = getBuildParamOrDefault "nugetkey" ""
+            Publish = hasBuildParam "nugetkey" }) "octokit.api.nuspec"
+)
 
 Target "Default" DoNothing
 
@@ -149,9 +198,15 @@ Target "CreatePackages" DoNothing
 
 "SourceLink"
    ==> "CreatePackages"
+   
 "CreateOctokitPackage"
    ==> "CreatePackages"
 
+"CreateOctokitSpiPackage"
+   ==> "CreatePackages"
+
+"CreateOctokitApiPackage"
+   ==> "CreatePackages"
 
 
 RunTargetOrDefault "Default"

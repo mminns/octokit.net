@@ -3,5 +3,4 @@ init:
 build_script:
   - cmd: buildsplit.cmd BuildApp
   - cmd: buildsplit.cmd UnitTests
-  - cmd: buildsplit.cmd ConventionTests
 test: off

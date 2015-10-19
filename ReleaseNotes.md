@@ -1,3 +1,6 @@
+### New in 0.18.0 (released TBD)
+* Improved: Split out Spi and Api
+
 ### New in 0.17.0 (released TBD)
 
 * Improved: Added ability to create deploy keys that are read only and can only be used to read repository contents and not write to them - via #915 @haacked

@@ -62,10 +62,6 @@
       <Project>{66f668a4-26b5-4ae3-b684-93038093ffb0}</Project>
       <Name>Octokit.Spi</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Octokit.Tests.Integration\Octokit.Tests.Integration.csproj">
-      <Project>{01687d54-1d87-4562-a721-c57f1c94052c}</Project>
-      <Name>Octokit.Tests.Integration</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Octokit\Octokit.csproj">
       <Project>{08dd4305-7787-4823-a53f-4d0f725a07f3}</Project>
       <Name>Octokit</Name>
