@@ -54,6 +54,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Octokit.Api\Octokit.Api.csproj">
+      <Project>{28a12aa2-3d92-4a00-8603-fd552685a64e}</Project>
+      <Name>Octokit.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Octokit.Spi\Octokit.Spi.csproj">
+      <Project>{66f668a4-26b5-4ae3-b684-93038093ffb0}</Project>
+      <Name>Octokit.Spi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Octokit.Tests.Integration\Octokit.Tests.Integration.csproj">
       <Project>{01687d54-1d87-4562-a721-c57f1c94052c}</Project>
       <Name>Octokit.Tests.Integration</Name>
