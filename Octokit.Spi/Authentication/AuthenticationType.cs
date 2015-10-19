@@ -1,4 +1,4 @@
-﻿namespace Octokit
+﻿namespace Octokit.Authentication
 {
     /// <summary>
     /// Authentication protocols supported by the GitHub API

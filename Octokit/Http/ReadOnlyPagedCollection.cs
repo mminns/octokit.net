@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Octokit.Http;
 
 namespace Octokit.Internal
 {
     public class ReadOnlyPagedCollection<T> : ReadOnlyCollection<T>, IReadOnlyPagedCollection<T>
     {
-        readonly ApiInfo _info;
+        readonly IApiInfo _info;
         readonly Func<Uri, Task<IApiResponse<List<T>>>> _nextPageFunc;
 
         public ReadOnlyPagedCollection(IApiResponse<List<T>> response, Func<Uri, Task<IApiResponse<List<T>>>> nextPageFunc)
@@ -25,7 +26,8 @@ namespace Octokit.Internal
 
         public async Task<IReadOnlyPagedCollection<T>> GetNextPage()
         {
-            var nextPageUrl = _info.GetNextPageUrl();
+            // TODO getNextPageUrl is an extension
+            var nextPageUrl = ((ApiInfo)_info).GetNextPageUrl();
             if (nextPageUrl == null) return null;
 
             var response = await _nextPageFunc(nextPageUrl).ConfigureAwait(false);

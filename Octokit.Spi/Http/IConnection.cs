@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Octokit.Internal;
 
-namespace Octokit
+namespace Octokit.Http
 {
     /// <summary>
     /// A connection for making HTTP requests against URI endpoints.
@@ -243,6 +242,6 @@ namespace Octokit
         /// Setting this property will change the <see cref="ICredentialStore"/> to use 
         /// the default <see cref="InMemoryCredentialStore"/> with just these credentials.
         /// </remarks>
-        Credentials Credentials { get; set; }
+        ICredentials Credentials { get; set; }
     }
 }

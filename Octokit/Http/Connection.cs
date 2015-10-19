@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Octokit.Http;
 using Octokit.Internal;
 
 namespace Octokit
@@ -18,7 +19,7 @@ namespace Octokit
     public class Connection : IConnection
     {
         static readonly Uri _defaultGitHubApiUrl = GitHubClient.GitHubApiUrl;
-        static readonly ICredentialStore _anonymousCredentials = new InMemoryCredentialStore(Credentials.Anonymous);
+        static readonly ICredentialStore _anonymousCredentials = new InMemoryCredentialStore(Octokit.Credentials.Anonymous);
 
         readonly Authenticator _authenticator;
         readonly JsonHttpPipeline _jsonPipeline;
@@ -148,7 +149,7 @@ namespace Octokit
             // See https://github.com/octokit/octokit.net/pull/855#discussion_r36774884
             return _lastApiInfo == null ? null : _lastApiInfo.Clone();
         }
-        private ApiInfo _lastApiInfo;
+        private IApiInfo _lastApiInfo;
 
         public Task<IApiResponse<T>> Get<T>(Uri uri, IDictionary<string, string> parameters, string accepts)
         {
@@ -502,13 +503,13 @@ namespace Octokit
         /// Setting this property will change the <see cref="ICredentialStore"/> to use 
         /// the default <see cref="InMemoryCredentialStore"/> with just these credentials.
         /// </remarks>
-        public Credentials Credentials
+        public Octokit.Http.ICredentials Credentials
         {
             get
             {
                 var credentialTask = CredentialStore.GetCredentials();
-                if (credentialTask == null) return Credentials.Anonymous;
-                return credentialTask.Result ?? Credentials.Anonymous;
+                if (credentialTask == null) return Octokit.Credentials.Anonymous;
+                return credentialTask.Result ?? Octokit.Credentials.Anonymous;
             }
             // Note this is for convenience. We probably shouldn't allow this to be mutable.
             set

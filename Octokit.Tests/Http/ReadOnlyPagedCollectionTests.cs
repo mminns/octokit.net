@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Octokit.Internal;
 using NSubstitute;
+using Octokit.Http;
 using Xunit;
 
 namespace Octokit.Tests.Http

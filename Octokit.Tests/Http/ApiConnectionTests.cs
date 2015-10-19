@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using NSubstitute;
+using Octokit.Http;
 using Octokit.Internal;
 using Xunit;
 

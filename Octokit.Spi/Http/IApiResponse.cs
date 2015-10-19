@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 
-namespace Octokit
+namespace Octokit.Http
 {
     /// <summary>
     /// A response from an API call that includes the deserialized object instance.
@@ -37,7 +37,7 @@ namespace Octokit
         /// <summary>
         /// Information about the API response parsed from the response headers.
         /// </summary>
-        ApiInfo ApiInfo { get; }
+        IApiInfo ApiInfo { get; }
 
         /// <summary>
         /// The response status code.

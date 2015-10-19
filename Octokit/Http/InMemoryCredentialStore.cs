@@ -1,19 +1,20 @@
 ﻿using System.Threading.Tasks;
+using Octokit.Http;
 
 namespace Octokit.Internal
 {
     public class InMemoryCredentialStore : ICredentialStore
     {
-        readonly Credentials _credentials;
+        readonly ICredentials _credentials;
 
-        public InMemoryCredentialStore(Credentials credentials)
+        public InMemoryCredentialStore(ICredentials credentials)
         {
             Ensure.ArgumentNotNull(credentials, "credentials");
 
             _credentials = credentials;
         }
 
-        public Task<Credentials> GetCredentials()
+        public Task<ICredentials> GetCredentials()
         {
             return Task.FromResult(_credentials);
         }

@@ -1,4 +1,4 @@
-﻿namespace Octokit
+﻿namespace Octokit.Http
 {
     /// <summary>
     /// Provides a property for the Last recorded API infomation

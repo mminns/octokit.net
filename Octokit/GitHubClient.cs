@@ -1,4 +1,5 @@
 ﻿using System;
+using Octokit.Http;
 using Octokit.Internal;
 
 namespace Octokit
@@ -118,7 +119,7 @@ namespace Octokit
         /// Setting this property will change the <see cref="ICredentialStore"/> to use 
         /// the default <see cref="InMemoryCredentialStore"/> with just these credentials.
         /// </remarks>
-        public Credentials Credentials
+        public ICredentials Credentials
         {
             get { return Connection.Credentials; }
             // Note this is for convenience. We probably shouldn't allow this to be mutable.

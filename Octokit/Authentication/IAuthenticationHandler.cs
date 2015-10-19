@@ -1,7 +1,9 @@
-﻿namespace Octokit.Internal
+﻿using Octokit.Http;
+
+namespace Octokit.Internal
 {
     interface IAuthenticationHandler
     {
-        void Authenticate(IRequest request, Credentials credentials);
+        void Authenticate(IRequest request, ICredentials credentials);
     }
 }

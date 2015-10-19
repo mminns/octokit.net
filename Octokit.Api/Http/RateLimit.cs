@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.Serialization;
 using Octokit.Helpers;
+using Octokit.Http;
 using Octokit.Internal;
 
 namespace Octokit

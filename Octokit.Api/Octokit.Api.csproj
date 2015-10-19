@@ -48,6 +48,7 @@
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
+    <Compile Include="Clients\ApiClient.cs" />
     <Compile Include="Helpers\CollectionExtensions.cs" />
     <Compile Include="Helpers\Ensure.cs" />
     <Compile Include="Helpers\ParameterAttribute.cs" />

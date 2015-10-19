@@ -1,4 +1,5 @@
 ﻿using System;
+using Octokit.Authentication;
 using Octokit.Internal;
 using Xunit;
 

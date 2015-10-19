@@ -329,7 +329,6 @@
     <Compile Include="Clients\MiscellaneousClient.cs" />
     <Compile Include="Exceptions\ApiException.cs" />
     <Compile Include="Helpers\ApiExtensions.cs" />
-    <Compile Include="Clients\ApiClient.cs" />
     <Compile Include="Clients\AuthorizationsClient.cs" />
     <Compile Include="Clients\ApiPagination.cs" />
     <Compile Include="Clients\NotificationsClient.cs" />
@@ -344,7 +343,6 @@
     <Compile Include="Exceptions\RateLimitExceededException.cs" />
     <Compile Include="Helpers\UriExtensions.cs" />
     <Compile Include="Http\ApiConnection.cs" />
-    <Compile Include="Http\IApiConnection.cs" />
     <Compile Include="Http\IHttpClient.cs" />
     <Compile Include="Http\JsonHttpPipeline.cs" />
     <Compile Include="Http\ReadOnlyPagedCollection.cs" />
@@ -352,7 +350,6 @@
     <Compile Include="Http\CredentialsExtensions.cs" />
     <Compile Include="Http\HttpVerb.cs" />
     <Compile Include="Authentication\IAuthenticationHandler.cs" />
-    <Compile Include="Http\ICredentialStore.cs" />
     <Compile Include="Http\InMemoryCredentialStore.cs" />
     <Compile Include="Helpers\IApiPagination.cs" />
     <Compile Include="Clients\IAuthorizationsClient.cs" />
@@ -380,14 +377,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GitHubClient.cs" />
-    <Compile Include="Authentication\AuthenticationType.cs" />
     <Compile Include="Http\Connection.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Http\HttpClientAdapter.cs" />
-    <Compile Include="Http\IConnection.cs" />
     <Compile Include="Http\IRequest.cs" />
-    <Compile Include="Http\IResponse.cs" />
     <Compile Include="Http\Request.cs" />
     <Compile Include="Helpers\ModelExtensions.cs" />
     <Compile Include="Models\Response\Authorization.cs" />

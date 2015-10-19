@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Octokit.Authentication;
+using Octokit.Http;
 
 namespace Octokit
 {
-    public class Credentials
+    public class Credentials : ICredentials
     {
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes"
             , Justification = "Credentials is immutable")]

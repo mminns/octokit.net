@@ -1,4 +1,6 @@
-﻿namespace Octokit
+﻿using Octokit.Http;
+
+namespace Octokit
 {
     /// <summary>
     /// A Client for the GitHub API v3. You can read more about the api here: http://developer.github.com.

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Octokit
+namespace Octokit.Http
 {
     public interface IRateLimit
     {

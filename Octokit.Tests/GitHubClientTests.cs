@@ -6,6 +6,8 @@ using Octokit.Internal;
 using Xunit;
 using Xunit.Extensions;
 using System.Collections.Generic;
+using Octokit.Authentication;
+using Octokit.Http;
 
 namespace Octokit.Tests
 {
@@ -98,7 +100,7 @@ namespace Octokit.Tests
             public void IsRetrievedFromCredentialStore()
             {
                 var credentialStore = Substitute.For<ICredentialStore>();
-                credentialStore.GetCredentials().Returns(Task.Factory.StartNew(() => new Credentials("foo", "bar")));
+                credentialStore.GetCredentials().Returns(Task.Factory.StartNew<ICredentials>(() => new Credentials("foo", "bar")));
                 var client = new GitHubClient(new ProductHeaderValue("OctokitTests"), credentialStore);
 
                 Assert.Equal("foo", client.Credentials.Login);

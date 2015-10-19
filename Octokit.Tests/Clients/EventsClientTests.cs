@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using NSubstitute;
 using Octokit.Internal;
 using Octokit;
+using Octokit.Http;
 using Octokit.Tests.Helpers;
 using Xunit;
 

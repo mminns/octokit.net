@@ -2,6 +2,7 @@
 using System.Collections;
 using System.IO;
 using System.Net.Http;
+using Octokit.Http;
 
 namespace Octokit.Internal
 {

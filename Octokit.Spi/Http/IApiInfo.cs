@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Octokit
+namespace Octokit.Http
 {
     public interface IApiInfo
     {
@@ -20,5 +20,7 @@ namespace Octokit
         IReadOnlyDictionary<string, Uri> Links { get; }
 
         IRateLimit RateLimit { get; }
+
+        IApiInfo Clone();
     }
 }

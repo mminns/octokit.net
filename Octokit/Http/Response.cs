@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net;
+using Octokit.Http;
 
 namespace Octokit.Internal
 {
@@ -43,7 +44,7 @@ namespace Octokit.Internal
         /// <summary>
         /// Information about the API response parsed from the response headers.
         /// </summary>
-        public ApiInfo ApiInfo { get; internal set; } // This setter is internal for use in tests.
+        public IApiInfo ApiInfo { get; internal set; } // This setter is internal for use in tests.
         /// <summary>
         /// The response status code.
         /// </summary>

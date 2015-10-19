@@ -5,6 +5,7 @@ using NSubstitute;
 using Octokit.Tests.Helpers;
 using Xunit;
 using System.Net;
+using Octokit.Http;
 using Octokit.Internal;
 
 namespace Octokit.Tests.Clients

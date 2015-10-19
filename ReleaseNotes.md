@@ -1,3 +1,9 @@
+### New in 0.18.2 (released TBD)
+* Improved: More split out Spi and Api
+
+### New in 0.18.1 (released TBD)
+* Improved: More split out Spi and Api
+
 ### New in 0.18.0 (released TBD)
 * Improved: Split out Spi and Api
 

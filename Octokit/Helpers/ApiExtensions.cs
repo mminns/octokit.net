@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Octokit.Http;
 #if NET_45
 using System.Collections.Generic;
 #endif

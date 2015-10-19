@@ -39,6 +39,9 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Octokit.Api\Clients\ApiClient.cs">
+      <Link>Clients\ApiClient.cs</Link>
+    </Compile>
     <Compile Include="..\Octokit.Api\Helpers\CollectionExtensions.cs">
       <Link>Helpers\CollectionExtensions.cs</Link>
     </Compile>
@@ -57,11 +60,26 @@
     <Compile Include="..\Octokit.Api\Http\RateLimit.cs">
       <Link>Http\RateLimit.cs</Link>
     </Compile>
+    <Compile Include="..\Octokit.Spi\Authentication\AuthenticationType.cs">
+      <Link>Authentication\AuthenticationType.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Http\IApiConnection.cs">
+      <Link>Http\IApiConnection.cs</Link>
+    </Compile>
     <Compile Include="..\Octokit.Spi\Http\IApiInfo.cs">
       <Link>Http\IApiInfo.cs</Link>
     </Compile>
     <Compile Include="..\Octokit.Spi\Http\IApiInfoProvider.cs">
       <Link>Http\IApiInfoProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Http\IApiResponse.cs">
+      <Link>Http\IApiResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Http\IConnection.cs">
+      <Link>Http\IConnection.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Http\ICredentials.cs">
+      <Link>Http\ICredentials.cs</Link>
     </Compile>
     <Compile Include="..\Octokit.Spi\Http\IRateLimit.cs">
       <Link>Http\IRateLimit.cs</Link>
@@ -123,6 +141,7 @@
     <Compile Include="Clients\IIssuesClient.cs" />
     <Compile Include="Clients\IMilestonesClient.cs" />
     <Compile Include="Helpers\ReflectionExtensions.cs" />
+    <Compile Include="Http\ICredentialStore.cs" />
     <Compile Include="Models\Request\GistFileUpdate.cs" />
     <Compile Include="Models\Request\GistRequest.cs" />
     <Compile Include="Models\Request\GistUpdate.cs" />
@@ -221,7 +240,6 @@
     <Compile Include="Clients\MiscellaneousClient.cs" />
     <Compile Include="Exceptions\ApiException.cs" />
     <Compile Include="Helpers\ApiExtensions.cs" />
-    <Compile Include="Clients\ApiClient.cs" />
     <Compile Include="Clients\AuthorizationsClient.cs" />
     <Compile Include="Clients\ApiPagination.cs" />
     <Compile Include="Clients\NotificationsClient.cs" />
@@ -236,7 +254,6 @@
     <Compile Include="Exceptions\RateLimitExceededException.cs" />
     <Compile Include="Helpers\UriExtensions.cs" />
     <Compile Include="Http\ApiConnection.cs" />
-    <Compile Include="Http\IApiConnection.cs" />
     <Compile Include="Http\IHttpClient.cs" />
     <Compile Include="Http\JsonHttpPipeline.cs" />
     <Compile Include="Http\ReadOnlyPagedCollection.cs" />
@@ -244,7 +261,6 @@
     <Compile Include="Http\CredentialsExtensions.cs" />
     <Compile Include="Http\HttpVerb.cs" />
     <Compile Include="Authentication\IAuthenticationHandler.cs" />
-    <Compile Include="Http\ICredentialStore.cs" />
     <Compile Include="Http\InMemoryCredentialStore.cs" />
     <Compile Include="Helpers\IApiPagination.cs" />
     <Compile Include="Clients\IAuthorizationsClient.cs" />
@@ -272,14 +288,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GitHubClient.cs" />
-    <Compile Include="Authentication\AuthenticationType.cs" />
     <Compile Include="Http\Connection.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Http\HttpClientAdapter.cs" />
-    <Compile Include="Http\IConnection.cs" />
     <Compile Include="Http\IRequest.cs" />
-    <Compile Include="Http\IResponse.cs" />
     <Compile Include="Http\Request.cs" />
     <Compile Include="Helpers\ModelExtensions.cs" />
     <Compile Include="Models\Response\Authorization.cs" />

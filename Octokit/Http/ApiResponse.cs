@@ -1,4 +1,6 @@
-﻿namespace Octokit.Internal
+﻿using Octokit.Http;
+
+namespace Octokit.Internal
 {
     public class ApiResponse<T> : IApiResponse<T>
     {

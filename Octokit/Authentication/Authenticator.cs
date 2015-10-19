@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Octokit.Authentication;
+using Octokit.Http;
 
 namespace Octokit.Internal
 {

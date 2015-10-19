@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Text;
+using Octokit.Http;
 
 namespace Octokit.Internal
 {
@@ -15,7 +16,7 @@ namespace Octokit.Internal
         ///<remarks>
         ///See the <a href="http://developer.github.com/v3/#basic-authentication">Basic Authentication documentation</a> for more information.
         ///</remarks>
-        public void Authenticate(IRequest request, Credentials credentials)
+        public void Authenticate(IRequest request, ICredentials credentials)
         {
             Ensure.ArgumentNotNull(request, "request");
             Ensure.ArgumentNotNull(credentials, "credentials");

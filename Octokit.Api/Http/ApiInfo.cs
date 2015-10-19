@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Octokit.Http;
 
 //#if NET_45
 //using System.Collections.ObjectModel;
@@ -58,7 +59,7 @@ namespace Octokit
         /// Allows you to clone ApiInfo 
         /// </summary>
         /// <returns>A clone of <seealso cref="ApiInfo"/></returns>
-        public ApiInfo Clone()
+        public IApiInfo Clone()
         {
             // Seem to have to do this to pass a whole bunch of tests (for example Octokit.Tests.Clients.EventsClientTests.DeserializesCommitCommentEventCorrectly)
             // I believe this has something to do with the Mocking framework.

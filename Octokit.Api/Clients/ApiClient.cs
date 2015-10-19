@@ -1,4 +1,6 @@
-﻿namespace Octokit
+﻿using Octokit.Http;
+
+namespace Octokit
 {
     /// <summary>
     /// Base class for an API client.
