@@ -98,18 +98,17 @@ Target "UnitTests" (fun _ ->
                 HtmlOutputPath = Some (testResultsDir @@ "xunit.html") })
 )
 
-//Target "IntegrationTests" (fun _ ->
-//    if hasBuildParam "OCTOKIT_GITHUBUSERNAME" && hasBuildParam "OCTOKIT_GITHUBPASSWORD" then
-//        !! (sprintf "./Octokit.Tests.Integration/bin/%s/**/Octokit.Tests.Integration.dll" buildMode)
-//        |> xUnit2 (fun p -> 
-//                {p with 
-//                    HtmlOutputPath = Some (testResultsDir @@ "xunit.html")
-//                    TimeOut = TimeSpan.FromMinutes 10.0  })
-//    else
-//        "The integration tests were skipped because the OCTOKIT_GITHUBUSERNAME and OCTOKIT_GITHUBPASSWORD environment variables are not set. " +
-//        "Please configure these environment variables for a GitHub test account (DO NOT USE A \"REAL\" ACCOUNT)."
-//        |> traceImportant 
-//)
+Target "IntegrationTests" (fun _ ->
+    if hasBuildParam "OCTOKIT_GITHUBUSERNAME" && hasBuildParam "OCTOKIT_GITHUBPASSWORD" then
+        !! (sprintf "./Octokit.Tests.Integration/bin/%s/**/Octokit.Tests.Integration.dll" buildMode)
+        |> xUnit2 (fun p -> 
+                {p with 
+                    HtmlOutputPath = Some (testResultsDir @@ "xunit.html")
+                    TimeOut = TimeSpan.FromMinutes 10.0  })
+    else
+        "The integration tests were skipped because the OCTOKIT_GITHUBUSERNAME and OCTOKIT_GITHUBPASSWORD environment variables are not set. " +
+        "Please configure these environment variables for a GitHub test account (DO NOT USE A \"REAL\" ACCOUNT).        |> traceImportant 
+)
 
 Target "SourceLink" (fun _ ->
     [   "Octokit/Octokit.csproj"
@@ -200,8 +199,8 @@ Target "CreatePackages" DoNothing
 "ConventionTests"
    ==> "Default"
 
-//"IntegrationTests"
-//   ==> "Default"
+"IntegrationTests"
+   ==> "Default"
 
 "SourceLink"
    ==> "CreatePackages"
