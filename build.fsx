@@ -107,7 +107,8 @@ Target "IntegrationTests" (fun _ ->
                     TimeOut = TimeSpan.FromMinutes 10.0  })
     else
         "The integration tests were skipped because the OCTOKIT_GITHUBUSERNAME and OCTOKIT_GITHUBPASSWORD environment variables are not set. " +
-        "Please configure these environment variables for a GitHub test account (DO NOT USE A \"REAL\" ACCOUNT).        |> traceImportant 
+        "Please configure these environment variables for a GitHub test account (DO NOT USE A \"REAL\" ACCOUNT)."
+        |> traceImportant 
 )
 
 Target "SourceLink" (fun _ ->
