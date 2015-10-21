@@ -39,8 +39,8 @@ namespace Octokit
         /// </summary>
         /// <param name="message">The error message</param>
         /// <param name="innerException">The inner exception</param>
-        public ApiException(string message, Exception innerException, IJsonSerializer jsonSerializer)
-            : this(GetApiErrorFromExceptionMessage(message, jsonSerializer), 0, innerException)
+        public ApiException(string message, Exception innerException, IDataFormatSerializer dataFormatSerializer)
+            : this(GetApiErrorFromExceptionMessage(message, dataFormatSerializer), 0, innerException)
         {
         }
 
@@ -48,8 +48,8 @@ namespace Octokit
         /// Constructs an instance of ApiException
         /// </summary>
         /// <param name="response">The HTTP payload from the server</param>
-        public ApiException(IResponse response, IJsonSerializer jsonSerializer)
-            : this(response, null, jsonSerializer)
+        public ApiException(IResponse response, IDataFormatSerializer dataFormatSerializer)
+            : this(response, null, dataFormatSerializer)
         {
         }
 
@@ -58,13 +58,13 @@ namespace Octokit
         /// </summary>
         /// <param name="response">The HTTP payload from the server</param>
         /// <param name="innerException">The inner exception</param>
-        public ApiException(IResponse response, Exception innerException, IJsonSerializer jsonSerializer)
+        public ApiException(IResponse response, Exception innerException, IDataFormatSerializer dataFormatSerializer)
             : base(null, innerException)
         {
             Ensure.ArgumentNotNull(response, "response");
 
             StatusCode = response.StatusCode;
-            ApiError = GetApiErrorFromExceptionMessage(response, jsonSerializer);
+            ApiError = GetApiErrorFromExceptionMessage(response, dataFormatSerializer);
             HttpResponse = response;
         }
 
@@ -113,21 +113,21 @@ namespace Octokit
         /// </summary>
         public ApiError ApiError { get; private set; }
 
-        static ApiError GetApiErrorFromExceptionMessage(IResponse response, IJsonSerializer jsonSerializer)
+        static ApiError GetApiErrorFromExceptionMessage(IResponse response, IDataFormatSerializer dataFormatSerializer)
         {
             string responseBody = response != null ? response.Body as string : null;
-            return GetApiErrorFromExceptionMessage(responseBody, jsonSerializer);
+            return GetApiErrorFromExceptionMessage(responseBody, dataFormatSerializer);
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
-        static ApiError GetApiErrorFromExceptionMessage(string responseContent, IJsonSerializer jsonSerializer)
+        static ApiError GetApiErrorFromExceptionMessage(string responseContent, IDataFormatSerializer dataFormatSerializer)
         {
             try
             {
                 if (!String.IsNullOrEmpty(responseContent)
-                    && jsonSerializer != null)
+                    && dataFormatSerializer != null)
                 {
-                    return jsonSerializer.Deserialize<ApiError>(responseContent) ?? new ApiError(responseContent);
+                    return dataFormatSerializer.Deserialize<ApiError>(responseContent) ?? new ApiError(responseContent);
                 }
             }
             catch (Exception)

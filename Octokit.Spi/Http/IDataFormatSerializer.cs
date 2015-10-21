@@ -1,6 +1,6 @@
 ﻿namespace Octokit.Internal
 {
-    public interface IJsonSerializer
+    public interface IDataFormatSerializer
     {
         string Serialize(object item);
         T Deserialize<T>(string json);

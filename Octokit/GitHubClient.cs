@@ -13,7 +13,9 @@ namespace Octokit
         /// The base address for the GitHub API
         /// </summary>
         public static readonly Uri GitHubApiUrl = new Uri("https://api.github.com/");
-        internal static readonly Uri GitHubDotComUrl = new Uri("https://github.com/");
+        public static readonly Uri GitHubDotcomUrl = new Uri("https://github.com/");
+        internal static JsonHttpPipeline DataPipeline = new JsonHttpPipeline(new SimpleJsonSerializer());
+        internal static InMemoryCredentialStore AnonymousCredentials = new InMemoryCredentialStore(Octokit.Credentials.Anonymous);
 
         /// <summary>
         /// Create a new instance of the GitHub API v3 client pointing to 
@@ -24,7 +26,7 @@ namespace Octokit
         /// the user agent for analytics purposes.
         /// </param>
         public GitHubClient(ProductHeaderValue productInformation)
-            : this(new Connection(productInformation, GitHubApiUrl))
+            : this(new Connection(productInformation, GitHubApiUrl, AnonymousCredentials, DataPipeline))
         {
         }
 
@@ -38,7 +40,7 @@ namespace Octokit
         /// </param>
         /// <param name="credentialStore">Provides credentials to the client when making requests</param>
         public GitHubClient(ProductHeaderValue productInformation, ICredentialStore credentialStore)
-            : this(new Connection(productInformation, credentialStore))
+            : this(new Connection(productInformation, GitHubApiUrl, credentialStore, DataPipeline))
         {
         }
 
@@ -53,7 +55,7 @@ namespace Octokit
         /// The address to point this client to. Typically used for GitHub Enterprise 
         /// instances</param>
         public GitHubClient(ProductHeaderValue productInformation, Uri baseAddress)
-            : this(new Connection(productInformation, FixUpBaseUri(baseAddress)))
+            : this(new Connection(productInformation, FixUpBaseUri(baseAddress), AnonymousCredentials, DataPipeline))
         {
         }
 
@@ -69,7 +71,7 @@ namespace Octokit
         /// The address to point this client to. Typically used for GitHub Enterprise 
         /// instances</param>
         public GitHubClient(ProductHeaderValue productInformation, ICredentialStore credentialStore, Uri baseAddress)
-            : this(new Connection(productInformation, FixUpBaseUri(baseAddress), credentialStore))
+            : this(new Connection(productInformation, FixUpBaseUri(baseAddress), credentialStore, DataPipeline))
         {
         }
 

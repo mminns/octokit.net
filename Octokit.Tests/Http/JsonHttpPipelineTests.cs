@@ -25,7 +25,7 @@ namespace Octokit.Tests.Http
             public void SetsRequestAcceptHeader()
             {
                 var request = new Request();
-                var jsonPipeline = new JsonHttpPipeline();
+                var jsonPipeline = GitHubClient.DataPipeline;
 
                 jsonPipeline.SerializeRequest(request);
 
@@ -38,7 +38,7 @@ namespace Octokit.Tests.Http
             {
                 var request = new Request();
                 request.Headers.Add("Accept", "application/vnd.github.v3; charset=utf-8");
-                var jsonPipeline = new JsonHttpPipeline();
+                var jsonPipeline = GitHubClient.DataPipeline;
 
                 jsonPipeline.SerializeRequest(request);
 
@@ -51,7 +51,7 @@ namespace Octokit.Tests.Http
             {
                 const string json = "just some string data";
                 var request = new Request { Body = json };
-                var jsonPipeline = new JsonHttpPipeline();
+                var jsonPipeline = GitHubClient.DataPipeline;
 
                 jsonPipeline.SerializeRequest(request);
 
@@ -63,7 +63,7 @@ namespace Octokit.Tests.Http
             {
                 var stream = new MemoryStream();
                 var request = new Request { Body = stream };
-                var jsonPipeline = new JsonHttpPipeline();
+                var jsonPipeline = GitHubClient.DataPipeline;
 
                 jsonPipeline.SerializeRequest(request);
 
@@ -74,7 +74,7 @@ namespace Octokit.Tests.Http
             public void LeavesNullBodyAlone()
             {
                 var request = new Request { Body = null };
-                var jsonPipeline = new JsonHttpPipeline();
+                var jsonPipeline = GitHubClient.DataPipeline;
 
                 jsonPipeline.SerializeRequest(request);
 
@@ -85,7 +85,7 @@ namespace Octokit.Tests.Http
             public void EncodesObjectBody()
             {
                 var request = new Request { Body = new { test = "value" } };
-                var jsonPipeline = new JsonHttpPipeline();
+                var jsonPipeline = GitHubClient.DataPipeline;
 
                 jsonPipeline.SerializeRequest(request);
 
@@ -95,7 +95,7 @@ namespace Octokit.Tests.Http
             [Fact]
             public void EnsuresArguments()
             {
-                var jsonPipeline = new JsonHttpPipeline();
+                var jsonPipeline = GitHubClient.DataPipeline;
 
                 Assert.Throws<ArgumentNullException>(() => jsonPipeline.SerializeRequest(null));
             }
@@ -112,7 +112,7 @@ namespace Octokit.Tests.Http
                     SimpleJson.SerializeObject(data),
                     new Dictionary<string, string>(),
                     "application/json");
-                var jsonPipeline = new JsonHttpPipeline();
+                var jsonPipeline = GitHubClient.DataPipeline;
 
                 var response = jsonPipeline.DeserializeResponse<string>(httpResponse);
 
@@ -129,7 +129,7 @@ namespace Octokit.Tests.Http
                     SimpleJson.SerializeObject(data),
                     new Dictionary<string, string>(),
                     "text/html");
-                var jsonPipeline = new JsonHttpPipeline();
+                var jsonPipeline = GitHubClient.DataPipeline;
 
                 var response = jsonPipeline.DeserializeResponse<Commit>(httpResponse);
 
@@ -140,7 +140,7 @@ namespace Octokit.Tests.Http
             public void DeserializesSingleObjectResponseIntoCollectionWithOneItem()
             {
                 const string data = "{\"name\":\"Haack\"}";
-                var jsonPipeline = new JsonHttpPipeline();
+                var jsonPipeline = GitHubClient.DataPipeline;
                 var httpResponse = new Response(
                     HttpStatusCode.OK, 
                     data,
@@ -180,7 +180,7 @@ namespace Octokit.Tests.Http
                     data,
                     new Dictionary<string, string>(),
                     "application/json");
-                var jsonPipeline = new JsonHttpPipeline();
+                var jsonPipeline = GitHubClient.DataPipeline;
 
                 var response = jsonPipeline.DeserializeResponse<GitTag>(httpResponse);
 

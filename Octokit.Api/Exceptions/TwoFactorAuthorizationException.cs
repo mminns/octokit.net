@@ -34,9 +34,9 @@ namespace Octokit
         /// </summary>
         /// <param name="response">The HTTP payload from the server</param>
         /// <param name="twoFactorType">Expected 2FA response type</param>
-        /// <param name="jsonSerializer">Use the deserialize error response payload.</param>
-        protected TwoFactorAuthorizationException(IResponse response, TwoFactorType twoFactorType, IJsonSerializer jsonSerializer)
-            : base(response, jsonSerializer)
+        /// <param name="dataFormatSerializer">Use the deserialize error response payload.</param>
+        protected TwoFactorAuthorizationException(IResponse response, TwoFactorType twoFactorType, IDataFormatSerializer dataFormatSerializer)
+            : base(response, dataFormatSerializer)
         {
             Debug.Assert(response != null && response.StatusCode == HttpStatusCode.Unauthorized,
                 "TwoFactorRequiredException status code should be 401");
@@ -50,9 +50,9 @@ namespace Octokit
         /// <param name="response">The HTTP payload from the server</param>
         /// <param name="twoFactorType">Expected 2FA response type</param>
         /// <param name="innerException">The inner exception</param>
-        /// <param name="jsonSerializer">Use the deserialize error response payload.</param>
-        protected TwoFactorAuthorizationException(IResponse response, TwoFactorType twoFactorType, Exception innerException, IJsonSerializer jsonSerializer)
-            : base(response, innerException, jsonSerializer)
+        /// <param name="dataFormatSerializer">Use the deserialize error response payload.</param>
+        protected TwoFactorAuthorizationException(IResponse response, TwoFactorType twoFactorType, Exception innerException, IDataFormatSerializer dataFormatSerializer)
+            : base(response, innerException, dataFormatSerializer)
         {
             Debug.Assert(response != null && response.StatusCode == HttpStatusCode.Unauthorized,
                 "TwoFactorRequiredException status code should be 401");

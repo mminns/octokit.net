@@ -58,9 +58,12 @@
     <Compile Include="Http\IConnection.cs" />
     <Compile Include="Http\ICredentials.cs" />
     <Compile Include="Http\ICredentialStore.cs" />
-    <Compile Include="Http\IJsonSerializer.cs" />
+    <Compile Include="Http\IDataFormatPipeline.cs" />
+    <Compile Include="Http\IHttpClient.cs" />
+    <Compile Include="Http\IDataFormatSerializer.cs" />
     <Compile Include="Http\IRateLimit.cs" />
     <Compile Include="Http\IApiResponse.cs" />
+    <Compile Include="Http\IRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

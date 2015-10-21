@@ -7,7 +7,7 @@ using Octokit.Reflection;
 
 namespace Octokit.Internal
 {
-    public class SimpleJsonSerializer : IJsonSerializer
+    public class SimpleJsonSerializer : IDataFormatSerializer
     {
         readonly GitHubSerializerStrategy _serializationStrategy = new GitHubSerializerStrategy();
 

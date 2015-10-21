@@ -515,7 +515,7 @@ namespace Octokit.Tests.Clients
             httpClientMock.Send(Arg.Is((IRequest r) => r.Endpoint.ToString().Contains("events")), Arg.Any<CancellationToken>()).Returns(Task.FromResult(
                 new Response(HttpStatusCode.Accepted, responseString, new Dictionary<string, string>(), "application/json") as IResponse));
 
-            return new EventsClient(new ApiConnection(new Connection(new ProductHeaderValue("mock"), httpClientMock)));
+            return new EventsClient(new ApiConnection(new Connection(new ProductHeaderValue("mock"), GitHubClient.GitHubApiUrl, GitHubClient.AnonymousCredentials, httpClientMock, new JsonHttpPipeline(new SimpleJsonSerializer()))));
         }
     }
 }

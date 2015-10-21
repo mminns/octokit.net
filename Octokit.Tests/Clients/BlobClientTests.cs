@@ -81,7 +81,7 @@ namespace Octokit.Tests.Clients
                 blobResponseJson,
                 new Dictionary<string, string>(),
                 "application/json");
-            var jsonPipeline = new JsonHttpPipeline();
+            var jsonPipeline = GitHubClient.DataPipeline;
 
             var response = jsonPipeline.DeserializeResponse<Blob>(httpResponse);
 

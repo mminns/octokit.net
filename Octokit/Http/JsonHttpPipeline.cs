@@ -10,21 +10,15 @@ namespace Octokit.Internal
     ///     Responsible for serializing the request and response as JSON and
     ///     adding the proper JSON response header.
     /// </summary>
-    public class JsonHttpPipeline
+    public class JsonHttpPipeline : IDataFormatPipeline
     {
         private const string v3ApiVersion = "application/vnd.github.quicksilver-preview+json; charset=utf-8, application/vnd.github.v3+json; charset=utf-8";
 
-        readonly IJsonSerializer _serializer;
-
-        public JsonHttpPipeline() : this(new SimpleJsonSerializer())
-        {
-        }
-
-        public JsonHttpPipeline(IJsonSerializer serializer)
+        public JsonHttpPipeline(IDataFormatSerializer serializer)
         {
             Ensure.ArgumentNotNull(serializer, "serializer");
 
-            _serializer = serializer;
+            Serializer = serializer;
         }
 
         public void SerializeRequest(IRequest request)
@@ -39,7 +33,7 @@ namespace Octokit.Internal
             if (request.Method == HttpMethod.Get || request.Body == null) return;
             if (request.Body is string || request.Body is Stream || request.Body is HttpContent) return;
 
-            request.Body = _serializer.Serialize(request.Body);
+            request.Body = Serializer.Serialize(request.Body);
         }
 
         public IApiResponse<T> DeserializeResponse<T>(IResponse response)
@@ -62,11 +56,13 @@ namespace Octokit.Internal
                     {
                         body = "[" + body + "]";
                     }
-                    var json = _serializer.Deserialize<T>(body);
+                    var json = Serializer.Deserialize<T>(body);
                     return new ApiResponse<T>(response, json);
                 }
             }
             return new ApiResponse<T>(response);
         }
+
+        public IDataFormatSerializer Serializer { get; private set; }
     }
 }

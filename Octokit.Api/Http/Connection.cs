@@ -18,88 +18,26 @@ namespace Octokit
     /// </summary>
     public class Connection : IConnection
     {
-        // This needs to be hard-coded for translating GitHub error messages.
-        private static readonly IJsonSerializer _jsonSerializer = new SimpleJsonSerializer();
-
-        static readonly Uri _defaultGitHubApiUrl = GitHubClient.GitHubApiUrl;
-        static readonly ICredentialStore _anonymousCredentials = new InMemoryCredentialStore(Octokit.Credentials.Anonymous);
-
         readonly Authenticator _authenticator;
-        readonly JsonHttpPipeline _jsonPipeline;
+        readonly IDataFormatPipeline _dataPipeline;
         readonly IHttpClient _httpClient;
 
         /// <summary>
-        /// Creates a new connection instance used to make requests of the GitHub API.
+        /// 
         /// </summary>
-        /// <param name="productInformation">
-        /// The name (and optionally version) of the product using this library. This is sent to the server as part of
-        /// the user agent for analytics purposes.
-        /// </param>
-        public Connection(ProductHeaderValue productInformation)
-            : this(productInformation, _defaultGitHubApiUrl, _anonymousCredentials)
+        /// <param name="productInformation"></param>
+        /// <param name="baseAddress"></param>
+        /// <param name="credentialStore"></param>
+        /// <param name="serializer"></param>
+        public Connection(
+            ProductHeaderValue productInformation,
+            Uri baseAddress,
+            ICredentialStore credentialStore,
+            IDataFormatPipeline dataPipeline) : this(productInformation, baseAddress, credentialStore, new HttpClientAdapter(HttpMessageHandlerFactory.CreateDefault), dataPipeline)
         {
-        }
-
-        /// <summary>
-        /// Creates a new connection instance used to make requests of the GitHub API.
-        /// </summary>
-        /// <param name="productInformation">
-        /// The name (and optionally version) of the product using this library. This is sent to the server as part of
-        /// the user agent for analytics purposes.
-        /// </param>
-        /// <param name="httpClient">
-        /// The client to use for executing requests
-        /// </param>
-        public Connection(ProductHeaderValue productInformation, IHttpClient httpClient)
-            : this(productInformation, _defaultGitHubApiUrl, _anonymousCredentials, httpClient, new SimpleJsonSerializer())
-        {
-        }
-
-        /// <summary>
-        /// Creates a new connection instance used to make requests of the GitHub API.
-        /// </summary>
-        /// <param name="productInformation">
-        /// The name (and optionally version) of the product using this library. This is sent to the server as part of
-        /// the user agent for analytics purposes.
-        /// </param>
-        /// <param name="baseAddress">
-        /// The address to point this client to such as https://api.github.com or the URL to a GitHub Enterprise 
-        /// instance</param>
-        public Connection(ProductHeaderValue productInformation, Uri baseAddress)
-            : this(productInformation, baseAddress, _anonymousCredentials)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new connection instance used to make requests of the GitHub API.
-        /// </summary>
-        /// <param name="productInformation">
-        /// The name (and optionally version) of the product using this library. This is sent to the server as part of
-        /// the user agent for analytics purposes.
-        /// </param>
-        /// <param name="credentialStore">Provides credentials to the client when making requests</param>
-        public Connection(ProductHeaderValue productInformation, ICredentialStore credentialStore)
-            : this(productInformation, _defaultGitHubApiUrl, credentialStore)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new connection instance used to make requests of the GitHub API.
-        /// </summary>
-        /// <param name="productInformation">
-        /// The name (and optionally version) of the product using this library. This is sent to the server as part of
-        /// the user agent for analytics purposes.
-        /// </param>
-        /// <param name="baseAddress">
-        /// The address to point this client to such as https://api.github.com or the URL to a GitHub Enterprise 
-        /// instance</param>
-        /// <param name="credentialStore">Provides credentials to the client when making requests</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
-        public Connection(ProductHeaderValue productInformation, Uri baseAddress, ICredentialStore credentialStore)
-            : this(productInformation, baseAddress, credentialStore, new HttpClientAdapter(HttpMessageHandlerFactory.CreateDefault), new SimpleJsonSerializer())
-        {
-        }
-
+            
+        }   
+        
         /// <summary>
         /// Creates a new connection instance used to make requests of the GitHub API.
         /// </summary>
@@ -118,13 +56,13 @@ namespace Octokit
             Uri baseAddress,
             ICredentialStore credentialStore,
             IHttpClient httpClient,
-            IJsonSerializer serializer)
+            IDataFormatPipeline dataPipeline)
         {
             Ensure.ArgumentNotNull(productInformation, "productInformation");
             Ensure.ArgumentNotNull(baseAddress, "baseAddress");
             Ensure.ArgumentNotNull(credentialStore, "credentialStore");
             Ensure.ArgumentNotNull(httpClient, "httpClient");
-            Ensure.ArgumentNotNull(serializer, "serializer");
+            Ensure.ArgumentNotNull(dataPipeline, "pipeline");
 
             if (!baseAddress.IsAbsoluteUri)
             {
@@ -137,7 +75,15 @@ namespace Octokit
             BaseAddress = baseAddress;
             _authenticator = new Authenticator(credentialStore);
             _httpClient = httpClient;
-            _jsonPipeline = new JsonHttpPipeline();
+            _dataPipeline = dataPipeline;
+            _httpExceptionMap =
+            new Dictionary<HttpStatusCode, Func<IResponse, Exception>>
+            {
+                { HttpStatusCode.Unauthorized, GetExceptionForUnauthorized },
+                { HttpStatusCode.Forbidden, GetExceptionForForbidden },
+                { HttpStatusCode.NotFound, response => new NotFoundException(response) },
+                { (HttpStatusCode)422, response => new ApiValidationException(response, _dataPipeline.Serializer) }
+            };
         }
 
         /// <summary>
@@ -531,9 +477,9 @@ namespace Octokit
 
         async Task<IApiResponse<T>> Run<T>(IRequest request, CancellationToken	cancellationToken)
         {
-            _jsonPipeline.SerializeRequest(request);
+            _dataPipeline.SerializeRequest(request);
             var response = await RunRequest(request, cancellationToken).ConfigureAwait(false);
-            return _jsonPipeline.DeserializeResponse<T>(response);
+            return _dataPipeline.DeserializeResponse<T>(response);
         }
 
         // THIS IS THE METHOD THAT EVERY REQUEST MUST GO THROUGH!
@@ -551,16 +497,9 @@ namespace Octokit
             return response;
         }
 
-        static readonly Dictionary<HttpStatusCode, Func<IResponse, Exception>> _httpExceptionMap =
-            new Dictionary<HttpStatusCode, Func<IResponse, Exception>>
-            {
-                { HttpStatusCode.Unauthorized, GetExceptionForUnauthorized },
-                { HttpStatusCode.Forbidden, GetExceptionForForbidden },
-                { HttpStatusCode.NotFound, response => new NotFoundException(response) },
-                { (HttpStatusCode)422, response => new ApiValidationException(response, _jsonSerializer) }
-            };
+        readonly Dictionary<HttpStatusCode, Func<IResponse, Exception>> _httpExceptionMap;
 
-        static void HandleErrors(IResponse response)
+        void HandleErrors(IResponse response)
         {
             Func<IResponse, Exception> exceptionFunc;
             if (_httpExceptionMap.TryGetValue(response.StatusCode, out exceptionFunc))
@@ -570,30 +509,30 @@ namespace Octokit
 
             if ((int)response.StatusCode >= 400)
             {
-                throw new ApiException(response, _jsonSerializer);
+                throw new ApiException(response, _dataPipeline.Serializer);
             }
         }
 
-        static Exception GetExceptionForUnauthorized(IResponse response)
+        Exception GetExceptionForUnauthorized(IResponse response)
         {
             var twoFactorType = ParseTwoFactorType(response);
 
             return twoFactorType == TwoFactorType.None
-                ? new AuthorizationException(response, _jsonSerializer)
-                : new TwoFactorRequiredException(response, twoFactorType, _jsonSerializer);
+                ? new AuthorizationException(response, _dataPipeline.Serializer)
+                : new TwoFactorRequiredException(response, twoFactorType, _dataPipeline.Serializer);
         }
 
-        static Exception GetExceptionForForbidden(IResponse response)
+        Exception GetExceptionForForbidden(IResponse response)
         {
             string body = response.Body as string ?? "";
             return body.Contains("rate limit exceeded")
-                ? new RateLimitExceededException(response, _jsonSerializer)
+                ? new RateLimitExceededException(response, _dataPipeline.Serializer)
                 : body.Contains("number of login attempts exceeded")
-                    ? new LoginAttemptsExceededException(response, _jsonSerializer)
-                    : new ForbiddenException(response, _jsonSerializer);
+                    ? new LoginAttemptsExceededException(response, _dataPipeline.Serializer)
+                    : new ForbiddenException(response, _dataPipeline.Serializer);
         }
 
-        internal static TwoFactorType ParseTwoFactorType(IResponse restResponse)
+        public static TwoFactorType ParseTwoFactorType(IResponse restResponse)
         {
             if (restResponse == null || restResponse.Headers == null || !restResponse.Headers.Any()) return TwoFactorType.None;
             var otpHeader = restResponse.Headers.FirstOrDefault(header =>

@@ -29,9 +29,9 @@ namespace Octokit
         /// Constructs an instance of AuthorizationException
         /// </summary>
         /// <param name="response">The HTTP payload from the server</param>
-        /// <param name="jsonSerializer">Use the deserialize error response payload.</param>
-        public AuthorizationException(IResponse response, IJsonSerializer jsonSerializer)
-            : this(response, null, jsonSerializer)
+        /// <param name="dataFormatSerializer">Use the deserialize error response payload.</param>
+        public AuthorizationException(IResponse response, IDataFormatSerializer dataFormatSerializer)
+            : this(response, null, dataFormatSerializer)
         {
         }
 
@@ -40,9 +40,9 @@ namespace Octokit
         /// </summary>
         /// <param name="response">The HTTP payload from the server</param>
         /// <param name="innerException">The inner exception</param>
-        /// <param name="jsonSerializer">Use the deserialize error response payload.</param>
-        public AuthorizationException(IResponse response, Exception innerException, IJsonSerializer jsonSerializer)
-            : base(response, innerException, jsonSerializer)
+        /// <param name="dataFormatSerializer">Use the deserialize error response payload.</param>
+        public AuthorizationException(IResponse response, Exception innerException, IDataFormatSerializer dataFormatSerializer)
+            : base(response, innerException, dataFormatSerializer)
         {
             Debug.Assert(response != null && response.StatusCode == HttpStatusCode.Unauthorized,
                 "AuthorizationException created with wrong status code");

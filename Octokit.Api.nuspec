@@ -20,6 +20,8 @@
         <dependency id="Octokit.Spi" />
       </group>
       <group targetFramework="net45">
+        <dependency id="Microsoft.Net.Http" />
+        <dependency id="Octokit.Spi" version="@build.number@"/>
       </group>
     </dependencies>
     <frameworkAssemblies>

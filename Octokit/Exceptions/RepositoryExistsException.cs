@@ -40,7 +40,7 @@ namespace Octokit
             OwnerIsOrganization = true;
             var webBaseAddress = baseAddress.Host != GitHubClient.GitHubApiUrl.Host
                         ? baseAddress
-                        : GitHubClient.GitHubDotComUrl;
+                        : GitHubClient.GitHubDotcomUrl;
             ExistingRepositoryWebUrl = new Uri(webBaseAddress, new Uri(organization + "/" + name, UriKind.Relative));
             
             _message = string.Format(CultureInfo.InvariantCulture, "There is already a repository named '{0}' in the organization '{1}'.", name, organization);

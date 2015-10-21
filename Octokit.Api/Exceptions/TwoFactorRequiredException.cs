@@ -38,9 +38,9 @@ namespace Octokit
         /// </summary>
         /// <param name="response">The HTTP payload from the server</param>
         /// <param name="twoFactorType">Expected 2FA response type</param>
-        /// <param name="jsonSerializer">Use the deserialize error response payload.</param>
-        public TwoFactorRequiredException(IResponse response, TwoFactorType twoFactorType, IJsonSerializer jsonSerializer)
-            : base(response, twoFactorType, jsonSerializer)
+        /// <param name="dataFormatSerializer">Use the deserialize error response payload.</param>
+        public TwoFactorRequiredException(IResponse response, TwoFactorType twoFactorType, IDataFormatSerializer dataFormatSerializer)
+            : base(response, twoFactorType, dataFormatSerializer)
         {
             Debug.Assert(response != null && response.StatusCode == HttpStatusCode.Unauthorized,
                 "TwoFactorRequiredException status code should be 401");

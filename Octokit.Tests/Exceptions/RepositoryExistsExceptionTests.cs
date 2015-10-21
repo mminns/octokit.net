@@ -11,7 +11,7 @@ namespace Octokit.Tests.Exceptions
             Assert.Throws<ArgumentNullException>(() => new RepositoryExistsException(
                                                         null,                                        
                                                         "some-repo",
-                                                        GitHubClient.GitHubDotComUrl,
+                                                        GitHubClient.GitHubDotcomUrl,
                                                         new ApiValidationException()));
         }
 
@@ -33,7 +33,7 @@ namespace Octokit.Tests.Exceptions
                 var exception = new RepositoryExistsException(
                     "some-org",
                     "some-repo",
-                    GitHubClient.GitHubDotComUrl,
+                    GitHubClient.GitHubDotcomUrl,
                     new ApiValidationException());
 
                 Assert.Equal("There is already a repository named 'some-repo' in the organization 'some-org'.", exception.Message);
@@ -58,7 +58,7 @@ namespace Octokit.Tests.Exceptions
                 var exception = new RepositoryExistsException(
                     "some-org",
                     "some-repo",
-                    GitHubClient.GitHubDotComUrl,
+                    GitHubClient.GitHubDotcomUrl,
                     new ApiValidationException());
 
                 Assert.True(exception.OwnerIsOrganization);
@@ -83,7 +83,7 @@ namespace Octokit.Tests.Exceptions
                 var exception = new RepositoryExistsException(
                     "some-org",
                     "some-repo",
-                    GitHubClient.GitHubDotComUrl,
+                    GitHubClient.GitHubDotcomUrl,
                     new ApiValidationException());
 
                 Assert.Equal(new Uri("https://github.com/some-org/some-repo"), exception.ExistingRepositoryWebUrl);

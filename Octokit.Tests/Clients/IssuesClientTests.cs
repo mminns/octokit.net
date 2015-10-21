@@ -226,7 +226,7 @@ namespace Octokit.Tests.Clients
                 new Dictionary<string, string>(),
                 "application/json");
 
-            var jsonPipeline = new JsonHttpPipeline();
+            var jsonPipeline = GitHubClient.DataPipeline;
 
             var response = jsonPipeline.DeserializeResponse<Issue>(httpResponse);
 

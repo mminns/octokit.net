@@ -77,7 +77,6 @@
     <Compile Include="Exceptions\PrivateRepositoryQuotaExceededException.cs" />
     <Compile Include="Exceptions\RepositoryExistsException.cs" />
     <Compile Include="Exceptions\RepositoryFormatException.cs" />
-    <Compile Include="Exceptions\TwoFactorAuthorizationException.cs" />
     <Compile Include="Helpers\ApiErrorExtensions.cs" />
     <Compile Include="Helpers\ApiUrls.Authorizations.cs" />
     <Compile Include="Helpers\ApiUrls.Keys.cs" />
@@ -85,8 +84,7 @@
     <Compile Include="Helpers\HttpClientExtensions.cs" />
     <Compile Include="Helpers\PropertyOrField.cs" />
     <Compile Include="Helpers\ReflectionExtensions.cs" />
-    <Compile Include="Http\HttpMessageHandlerFactory.cs" />
-    <Compile Include="Http\ProductHeaderValue.cs" />
+    <Compile Include="Http\JsonHttpPipeline.cs" />
     <Compile Include="Http\RequestBody.cs" />
     <Compile Include="Http\SimpleJsonSerializer.cs" />
     <Compile Include="Models\Request\GistFileUpdate.cs" />
@@ -316,7 +314,6 @@
     <Compile Include="Models\Response\WeeklyHash.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Exceptions\TwoFactorChallengeFailedException.cs" />
-    <Compile Include="Exceptions\TwoFactorRequiredException.cs" />
     <Compile Include="Helpers\ApiUrls.cs" />
     <Compile Include="Helpers\AuthorizationExtensions.cs" />
     <Compile Include="Helpers\TwoFactorChallengeResult.cs" />
@@ -326,22 +323,8 @@
     <Compile Include="Clients\AuthorizationsClient.cs" />
     <Compile Include="Clients\NotificationsClient.cs" />
     <Compile Include="Clients\OrganizationsClient.cs" />
-    <Compile Include="Authentication\AnonymousAuthenticator.cs" />
-    <Compile Include="Authentication\Authenticator.cs" />
     <Compile Include="Clients\ReleasesClient.cs" />
     <Compile Include="Clients\SshKeysClient.cs" />
-    <Compile Include="Exceptions\ApiValidationException.cs" />
-    <Compile Include="Exceptions\ForbiddenException.cs" />
-    <Compile Include="Exceptions\LoginAttemptsExceededException.cs" />
-    <Compile Include="Exceptions\RateLimitExceededException.cs" />
-    <Compile Include="Helpers\UriExtensions.cs" />
-    <Compile Include="Http\IHttpClient.cs" />
-    <Compile Include="Http\JsonHttpPipeline.cs" />
-    <Compile Include="Http\Credentials.cs" />
-    <Compile Include="Http\CredentialsExtensions.cs" />
-    <Compile Include="Http\HttpVerb.cs" />
-    <Compile Include="Authentication\IAuthenticationHandler.cs" />
-    <Compile Include="Http\InMemoryCredentialStore.cs" />
     <Compile Include="Clients\IAuthorizationsClient.cs" />
     <Compile Include="IGitHubClient.cs" />
     <Compile Include="Clients\IMiscellaneousClient.cs" />
@@ -351,21 +334,7 @@
     <Compile Include="Clients\IOrganizationsClient.cs" />
     <Compile Include="Clients\IRepositoriesClient.cs" />
     <Compile Include="Clients\IUsersClient.cs" />
-    <Compile Include="Authentication\BasicAuthenticator.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Http\ApiResponse.cs" />
-    <Compile Include="Exceptions\AuthorizationException.cs" />
-    <Compile Include="Authentication\TokenAuthenticator.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="GitHubClient.cs" />
-    <Compile Include="Http\Connection.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Http\HttpClientAdapter.cs" />
-    <Compile Include="Http\IRequest.cs" />
-    <Compile Include="Http\Request.cs" />
     <Compile Include="Helpers\ModelExtensions.cs" />
     <Compile Include="Models\Response\Authorization.cs" />
     <Compile Include="Models\Request\AuthorizationUpdate.cs" />
@@ -409,6 +378,9 @@
       <Project>{66f668a4-26b5-4ae3-b684-93038093ffb0}</Project>
       <Name>Octokit.Spi</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Authentication\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="DocPlagiarizerTask" AssemblyFile="..\packages\DocPlagiarizer.0.1.2\tools\DocPlagiarizer.dll" />

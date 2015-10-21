@@ -29,8 +29,8 @@ namespace Octokit
         /// Constructs an instance of ApiValidationException
         /// </summary>
         /// <param name="response">The HTTP payload from the server</param>
-        public ApiValidationException(IResponse response, IJsonSerializer jsonSerializer)
-            : this(response, null, jsonSerializer)
+        public ApiValidationException(IResponse response, IDataFormatSerializer dataFormatSerializer)
+            : this(response, null, dataFormatSerializer)
         {
         }
 
@@ -39,8 +39,8 @@ namespace Octokit
         /// </summary>
         /// <param name="response">The HTTP payload from the server</param>
         /// <param name="innerException">The inner exception</param>
-        public ApiValidationException(IResponse response, Exception innerException, IJsonSerializer jsonSerializer)
-            : base(response, innerException, jsonSerializer)
+        public ApiValidationException(IResponse response, Exception innerException, IDataFormatSerializer dataFormatSerializer)
+            : base(response, innerException, dataFormatSerializer)
         {
             Debug.Assert(response != null && response.StatusCode == (HttpStatusCode)422,
                 "ApiValidationException created with wrong status code");
