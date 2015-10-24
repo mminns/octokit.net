@@ -181,11 +181,6 @@ Target "CreatePackages" DoNothing
    ==> "CheckProjects"
    ==> "BuildApp"
 
-"Clean"
-   ==> "AssemblyInfo"
-   ==> "CheckProjects"
-   ==> "BuildXSApp"
-
 "UnitTests"
    ==> "Default"
 
