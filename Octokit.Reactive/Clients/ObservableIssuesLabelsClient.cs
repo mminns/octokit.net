@@ -2,6 +2,7 @@
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
+using Octokit.Http;
 using Octokit.Reactive.Internal;
 
 namespace Octokit.Reactive

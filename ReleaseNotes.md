@@ -1,26 +1,5 @@
-### New in 0.18.7 (released TBD)
-* Improved: More split out Spi and Api
-
-### New in 0.18.6 (released TBD)
-* Improved: More split out Spi and Api
-
-### New in 0.18.5 (released TBD)
-* Improved: More split out Spi and Api
-
-### New in 0.18.4 (released TBD)
-* Improved: More split out Spi and Api
-
-### New in 0.18.3 (released TBD)
-* Improved: More split out Spi and Api
-
-### New in 0.18.2 (released TBD)
-* Improved: More split out Spi and Api
-
-### New in 0.18.1 (released TBD)
-* Improved: More split out Spi and Api
-
 ### New in 0.18.0 (released TBD)
-* Improved: Split out Spi and Api
+* Improved: Split out Octokit.Spi and Octokit.Api to allow for creation of other REST clients based upon the Octokit pattern. All unit tests pass. Integration tests are not running currently as they expect particular Github credentials. Also the Xamarin and Mono projects are untested.
 
 ### New in 0.17.0 (released TBD)
 

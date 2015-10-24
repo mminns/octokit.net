@@ -1,4 +1,5 @@
 ﻿using System;
+using Octokit.Http;
 
 namespace Octokit.Reactive
 {

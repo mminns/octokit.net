@@ -15,13 +15,25 @@ let reactiveProjectName = "Octokit.Reactive"
 let reactiveProjectDescription = "An IObservable based GitHub API client library for .NET using Reactive Extensions"
 let reactiveProjectSummary = reactiveProjectDescription // TODO: write a summary
 
+let projectSpiName = "Octokit.Spi"
+let projectSpiDescription = "An SPI defining an async-based REST API client library for .NET"
+let projectSpiSummary = projectSpiDescription // TODO: write a summary
+
+let projectApiName = "Octokit.Api"
+let projectApiDescription = "An API providing an async-based REST API client library for .NET"
+let projectApiSummary = projectApiDescription // TODO: write a summary
+
 // directories
 let buildDir = "./Octokit/bin"
 let reactiveBuildDir = "./Octokit.Reactive/bin"
+let buildSpiDir = "./Octokit.Spi/bin"
+let buildApiDir = "./Octokit.Api/bin"
 let testResultsDir = "./testresults"
 let packagingRoot = "./packaging/"
 let packagingDir = packagingRoot @@ "octokit"
 let reactivePackagingDir = packagingRoot @@ "octokit.reactive"
+let packagingSpiDir = packagingRoot @@ "octokit.spi"
+let packagingApiDir = packagingRoot @@ "octokit.api"
 
 let releaseNotes = 
     ReadFile "ReleaseNotes.md"
@@ -31,11 +43,11 @@ let buildMode = getBuildParamOrDefault "buildMode" "Release"
 
 MSBuildDefaults <- { 
     MSBuildDefaults with 
-        ToolsVersion = Some "12.0"
+        ToolsVersion = Some "14.0"
         Verbosity = Some MSBuildVerbosity.Minimal }
 
 Target "Clean" (fun _ ->
-    CleanDirs [buildDir; reactiveBuildDir; testResultsDir; packagingRoot; packagingDir; reactivePackagingDir]
+    CleanDirs [buildSpiDir; buildApiDir; buildDir; reactiveBuildDir; testResultsDir; packagingRoot; packagingDir; reactivePackagingDir]
 )
 
 open Fake.AssemblyInfoFile
@@ -92,7 +104,7 @@ Target "ConventionTests" (fun _ ->
 )
 
 Target "UnitTests" (fun _ ->
-    !! (sprintf "./Octokit.Tests/bin/%s/**/Octokit.Tests*.dll" buildMode)
+    !! (sprintf "./Octokit*Tests/bin/%s/**/Octokit*Tests.dll" buildMode)
     |> xUnit2 (fun p -> 
             {p with
                 HtmlOutputPath = Some (testResultsDir @@ "xunit.html") })
@@ -112,7 +124,9 @@ Target "IntegrationTests" (fun _ ->
 )
 
 Target "SourceLink" (fun _ ->
-    [   "Octokit/Octokit.csproj"
+    [   "Octokit.Api/Octokit.Spi.csproj"
+        "Octokit.Spi/Octokit.Api.csproj"
+        "Octokit/Octokit.csproj"
         "Octokit/Octokit-netcore45.csproj"
         "Octokit/Octokit-Portable.csproj"
         "Octokit.Reactive/Octokit.Reactive.csproj" ]
@@ -180,6 +194,52 @@ Target "CreateOctokitReactivePackage" (fun _ ->
             Publish = hasBuildParam "nugetkey" }) "Octokit.Reactive.nuspec"
 )
 
+Target "CreateOctokitSpiPackage" (fun _ ->
+    let net45Dir = packagingSpiDir @@ "lib/net45/"
+    CleanDirs [net45Dir; ]
+
+    CopyFile net45Dir (buildSpiDir @@ "Release/Net45/Octokit.Spi.dll")
+    CopyFile net45Dir (buildSpiDir @@ "Release/Net45/Octokit.Spi.XML")
+    CopyFile net45Dir (buildSpiDir @@ "Release/Net45/Octokit.Spi.pdb")
+    CopyFiles packagingDir ["LICENSE.txt"; "README.md"; "ReleaseNotes.md"]
+
+    NuGet (fun p -> 
+        {p with
+            Authors = authors
+            Project = projectSpiName
+            Description = projectSpiDescription
+            OutputPath = packagingRoot
+            Summary = projectSpiSummary
+            WorkingDir = packagingSpiDir
+            Version = releaseNotes.AssemblyVersion + "-alpha"
+            ReleaseNotes = toLines releaseNotes.Notes
+            AccessKey = getBuildParamOrDefault "nugetkey" ""
+            Publish = hasBuildParam "nugetkey" }) "octokit.spi.nuspec"
+)
+
+Target "CreateOctokitApiPackage" (fun _ ->
+    let net45Dir = packagingApiDir @@ "lib/net45/"
+    CleanDirs [net45Dir; ]
+
+    CopyFile net45Dir (buildApiDir @@ "Release/Net45/Octokit.Api.dll")
+    CopyFile net45Dir (buildApiDir @@ "Release/Net45/Octokit.Api.XML")
+    CopyFile net45Dir (buildApiDir @@ "Release/Net45/Octokit.Api.pdb")
+    CopyFiles packagingDir ["LICENSE.txt"; "README.md"; "ReleaseNotes.md"]
+
+    NuGet (fun p -> 
+        {p with
+            Authors = authors
+            Project = projectApiName
+            Description = projectApiDescription
+            OutputPath = packagingRoot
+            Summary = projectApiSummary
+            WorkingDir = packagingApiDir
+            Version = releaseNotes.AssemblyVersion + "-alpha"
+            ReleaseNotes = toLines releaseNotes.Notes
+            AccessKey = getBuildParamOrDefault "nugetkey" ""
+            Publish = hasBuildParam "nugetkey" }) "octokit.api.nuspec"
+)
+
 Target "Default" DoNothing
 
 Target "CreatePackages" DoNothing
@@ -206,6 +266,10 @@ Target "CreatePackages" DoNothing
 "SourceLink"
    ==> "CreatePackages"
 "CreateOctokitPackage"
+   ==> "CreatePackages"
+"CreateOctokitSpiPackage"
+   ==> "CreatePackages"
+"CreateOctokitApiPackage"
    ==> "CreatePackages"
 "CreateOctokitReactivePackage"
    ==> "CreatePackages"

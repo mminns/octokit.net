@@ -59,7 +59,36 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\OctoKit.Api.Tests\Http\ApiConnectionTests.cs">
+      <Link>Http\ApiConnectionTests.cs</Link>
+    </Compile>
+    <Compile Include="..\OctoKit.Api.Tests\Http\ApiInfoParserTests.cs">
+      <Link>Http\ApiInfoParserTests.cs</Link>
+    </Compile>
+    <Compile Include="..\OctoKit.Api.Tests\Http\ApiInfoTests.cs">
+      <Link>Http\ApiInfoTests.cs</Link>
+    </Compile>
+    <Compile Include="..\OctoKit.Api.Tests\Http\HttpClientAdapterTests.cs">
+      <Link>Http\HttpClientAdapterTests.cs</Link>
+    </Compile>
+    <Compile Include="..\OctoKit.Api.Tests\Http\RateLimitTests.cs">
+      <Link>Http\RateLimitTests.cs</Link>
+    </Compile>
+    <Compile Include="..\OctoKit.Api.Tests\Http\ReadOnlyPagedCollectionTests.cs">
+      <Link>Http\ReadOnlyPagedCollectionTests.cs</Link>
+    </Compile>
+    <Compile Include="..\OctoKit.Api.Tests\Http\RedirectHandlerTests.cs">
+      <Link>Http\RedirectHandlerTests.cs</Link>
+    </Compile>
+    <Compile Include="..\OctoKit.Api.Tests\Http\RequestTests.cs">
+      <Link>Http\RequestTests.cs</Link>
+    </Compile>
+    <Compile Include="..\OctoKit.Api.Tests\Http\ResponseTests.cs">
+      <Link>Http\ResponseTests.cs</Link>
+    </Compile>
+    <Compile Include="Authentication\BasicAuthenticatorTests.cs" />
     <Compile Include="Authentication\CredentialsTests.cs" />
+    <Compile Include="Authentication\TokenAuthenticatorTests.cs" />
     <Compile Include="Clients\AssigneesClientTests.cs" />
     <Compile Include="Clients\BlobClientTests.cs" />
     <Compile Include="Clients\CommitsClientTests.cs" />
@@ -107,30 +136,20 @@
     <Compile Include="Exceptions\RepositoryExistsExceptionTests.cs" />
     <Compile Include="Exceptions\TwoFactorChallengeFailedException.cs" />
     <Compile Include="Exceptions\TwoFactorRequiredExceptionTests.cs" />
+    <Compile Include="Helpers\Args.cs" />
     <Compile Include="Helpers\NSubstituteExtensions.cs" />
     <Compile Include="Helpers\ReflectionExtensions.cs" />
+    <Compile Include="Helpers\StringExtensionsTests.cs" />
     <Compile Include="Helpers\UnixTimestampExtensionsTests.cs" />
     <Compile Include="Helpers\UriExtensionsTests.cs" />
-    <Compile Include="Http\ApiConnectionTests.cs" />
     <Compile Include="Clients\AuthorizationsClientTests.cs" />
     <Compile Include="Clients\OrganizationsClientTests.cs" />
-    <Compile Include="Helpers\Arg.cs" />
     <Compile Include="Helpers\AssertEx.cs" />
-    <Compile Include="Http\HttpClientAdapterTests.cs" />
-    <Compile Include="Http\ApiInfoParserTests.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Authentication\BasicAuthenticatorTests.cs" />
     <Compile Include="Http\JsonHttpPipelineTests.cs" />
     <Compile Include="Fixtures\EmbeddedResource.cs" />
     <Compile Include="Fixtures\Fixtures.cs" />
     <Compile Include="GitHubClientTests.cs" />
-    <Compile Include="Authentication\TokenAuthenticatorTests.cs" />
     <Compile Include="Http\ConnectionTests.cs" />
-    <Compile Include="Http\RateLimitTests.cs" />
-    <Compile Include="Http\ReadOnlyPagedCollectionTests.cs" />
-    <Compile Include="Http\ResponseTests.cs" />
-    <Compile Include="Http\RequestTests.cs" />
     <Compile Include="Models\DeploymentStatusTests.cs" />
     <Compile Include="Models\DeploymentTests.cs" />
     <Compile Include="Models\GistTests.cs" />
@@ -151,7 +170,6 @@
     <Compile Include="Models\SearchRepositoryResultTests.cs" />
     <Compile Include="Models\SearchUsersRequestTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Helpers\StringExtensionsTests.cs" />
     <Compile Include="Clients\RepositoriesClientTests.cs" />
     <Compile Include="SelfTests.cs" />
     <Compile Include="SimpleJsonSerializerTests.cs" />

@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Octokit.Authentication;
 using Octokit.Http;
 using Octokit.Internal;
 
@@ -29,6 +30,8 @@ namespace Octokit
         /// <param name="baseAddress"></param>
         /// <param name="credentialStore"></param>
         /// <param name="serializer"></param>
+        /// <param name="dataPipeline"></param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         public Connection(
             ProductHeaderValue productInformation,
             Uri baseAddress,

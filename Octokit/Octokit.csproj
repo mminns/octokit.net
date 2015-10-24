@@ -87,7 +87,9 @@
     <Compile Include="Http\JsonHttpPipeline.cs" />
     <Compile Include="Http\RequestBody.cs" />
     <Compile Include="Http\SimpleJsonSerializer.cs" />
+    <Compile Include="Models\Request\AuthorizationUpdate.cs" />
     <Compile Include="Models\Request\GistFileUpdate.cs" />
+    <Compile Include="Models\Request\NewAuthorization.cs" />
     <Compile Include="Models\Request\NewMerge.cs" />
     <Compile Include="Models\Request\PublicRepositoryRequest.cs" />
     <Compile Include="Models\Request\ReleaseAssetUpload.cs" />
@@ -313,7 +315,6 @@
     <Compile Include="Models\Response\Participation.cs" />
     <Compile Include="Models\Response\WeeklyHash.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Exceptions\TwoFactorChallengeFailedException.cs" />
     <Compile Include="Helpers\ApiUrls.cs" />
     <Compile Include="Helpers\AuthorizationExtensions.cs" />
     <Compile Include="Helpers\TwoFactorChallengeResult.cs" />
@@ -337,8 +338,6 @@
     <Compile Include="GitHubClient.cs" />
     <Compile Include="Helpers\ModelExtensions.cs" />
     <Compile Include="Models\Response\Authorization.cs" />
-    <Compile Include="Models\Request\AuthorizationUpdate.cs" />
-    <Compile Include="Models\Request\NewAuthorization.cs" />
     <Compile Include="Models\Response\EmailAddress.cs" />
     <Compile Include="Models\Response\Organization.cs" />
     <Compile Include="Models\Response\Plan.cs" />

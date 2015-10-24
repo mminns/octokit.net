@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Octokit.Authentication;
 using Octokit.Http;
+using Octokit.Internal;
 
-namespace Octokit.Internal
+namespace Octokit.Authentication
 {
     class Authenticator
     {

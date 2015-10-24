@@ -50,6 +50,7 @@
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="Authentication\AuthenticationType.cs" />
+    <Compile Include="Authentication\IAuthenticationHandler.cs" />
     <Compile Include="Helpers\IApiPagination.cs" />
     <Compile Include="Helpers\IReadOnlyPagedCollection.cs" />
     <Compile Include="Http\IApiConnection.cs" />

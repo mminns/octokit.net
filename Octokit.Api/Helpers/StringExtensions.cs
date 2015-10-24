@@ -28,6 +28,8 @@ namespace Octokit
             return new Uri(string.Format(CultureInfo.InvariantCulture, pattern, args), UriKind.Relative);
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1055:UriReturnValuesShouldNotBeStrings")]
+        [SuppressMessage("Microsoft.Design", "CA1055:UriReturnValuesShouldNotBeStrings", MessageId = "UriEncode")]
         public static string UriEncode(this string input)
         {
             return WebUtility.UrlEncode(input);
@@ -45,6 +47,8 @@ namespace Octokit
         }
 
         static readonly Regex _optionalQueryStringRegex = new Regex("\\{\\?([^}]+)\\}");
+
+        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "1")]
         public static Uri ExpandUriTemplate(this string template, object values)
         {
             var optionalQueryStringMatch = _optionalQueryStringRegex.Match(template);
@@ -69,9 +73,9 @@ namespace Octokit
         }
 
 #if NETFX_CORE
-        public static PropertyInfo GetProperty(this Type t, string propertyName)
+        public static PropertyInfo GetProperty(this Type type, string propertyName)
         {
-            return t.GetTypeInfo().GetDeclaredProperty(propertyName);
+            return type.GetTypeInfo().GetDeclaredProperty(propertyName);
         }
 #endif
 

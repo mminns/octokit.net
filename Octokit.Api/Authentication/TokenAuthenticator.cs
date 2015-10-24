@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using Octokit.Http;
+using Octokit.Internal;
 
-namespace Octokit.Internal
+namespace Octokit.Authentication
 {
     class TokenAuthenticator : IAuthenticationHandler
     {

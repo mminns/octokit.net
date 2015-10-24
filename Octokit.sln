@@ -54,6 +54,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Octokit.Api", "Octokit.Api\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Octokit.Spi", "Octokit.Spi\Octokit.Spi.csproj", "{66F668A4-26B5-4AE3-B684-93038093FFB0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Octokit.Api.Tests", "OctoKit.Api.Tests\Octokit.Api.Tests.csproj", "{EA6CE895-4FAC-431D-BB3F-A2C82D327E42}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -112,6 +114,10 @@ Global
 		{66F668A4-26B5-4AE3-B684-93038093FFB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66F668A4-26B5-4AE3-B684-93038093FFB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66F668A4-26B5-4AE3-B684-93038093FFB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA6CE895-4FAC-431D-BB3F-A2C82D327E42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA6CE895-4FAC-431D-BB3F-A2C82D327E42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA6CE895-4FAC-431D-BB3F-A2C82D327E42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA6CE895-4FAC-431D-BB3F-A2C82D327E42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

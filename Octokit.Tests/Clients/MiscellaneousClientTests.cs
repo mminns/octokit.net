@@ -6,6 +6,7 @@ using Octokit.Internal;
 using Xunit;
 using System.Globalization;
 using Octokit.Http;
+using Octokit.Tests.Helpers;
 
 namespace Octokit.Tests.Clients
 {
