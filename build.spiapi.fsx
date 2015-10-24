@@ -187,12 +187,6 @@ Target "CreatePackages" DoNothing
 "ConventionTests"
    ==> "Default"
 
-"SourceLink"
-   ==> "CreatePackages"
-   
-"CreateOctokitPackage"
-   ==> "CreatePackages"
-
 "CreateOctokitSpiPackage"
    ==> "CreatePackages"
 
