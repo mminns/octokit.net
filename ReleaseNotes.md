@@ -1,4 +1,6 @@
-### New in 0.19.0 (released TBD)
+### New in 0.19.1 (released TBD)
+
+### New in 0.19.0 (released 2015/10/23)
 * Improved: Split out Octokit.Spi and Octokit.Api to allow for creation of other REST clients based upon the Octokit pattern. All unit tests pass. Integration tests are not running currently as they expect particular Github credentials. Also the Xamarin and Mono projects are untested.
 
 ### New in 0.17.0 (released TBD)
