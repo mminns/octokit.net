@@ -5,7 +5,7 @@
 "tools\nuget\nuget.exe" "install" "SourceLink.Fake" "-OutputDirectory" "tools" "-ExcludeVersion" "-version" "1.1.0"
 
 :Build
-cls
+rem cls
 
 SET TARGET="Default"
 
@@ -24,10 +24,12 @@ if %TARGET%=="RunIntegrationTests" (SET RunBuild=1)
 if %TARGET%=="CreatePackages" (SET RunBuild=1)
 
 if NOT "%RunBuild%"=="" (
-"tools\FAKE.Core\tools\Fake.exe" "build.spiapi.fsx" "target=BuildApp" "buildMode=%BUILDMODE%"
+echo "tools\FAKE.Core\tools\Fake.exe" "build.spiapi.fsx" "target=BuildApp" "buildMode=%BUILDMODE%"  "nugetkey=%NUGET_API_KEY%" "nugeturl=%NUGET_URL%"
+"tools\FAKE.Core\tools\Fake.exe" "build.spiapi.fsx" "target=BuildApp" "buildMode=%BUILDMODE%" "nugetkey=%NUGET_API_KEY%" "nugeturl=%NUGET_URL%"
 )
 
-"tools\FAKE.Core\tools\Fake.exe" "build.spiapi.fsx" "target=%TARGET%" "buildMode=%BUILDMODE%"
+echo "tools\FAKE.Core\tools\Fake.exe" "build.spiapi.fsx" "target=%TARGET%" "buildMode=%BUILDMODE%" "nugetkey=%NUGET_API_KEY%" "nugeturl=%NUGET_URL%"
+"tools\FAKE.Core\tools\Fake.exe" "build.spiapi.fsx" "target=%TARGET%" "buildMode=%BUILDMODE%"  "nugetkey=%NUGET_API_KEY%" "nugeturl=%NUGET_URL%"
 
 rem Bail if we're running a TeamCity build.
 if defined TEAMCITY_PROJECT_NAME goto Quit

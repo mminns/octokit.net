@@ -5,6 +5,7 @@ open System
 open SourceLink
 
 let authors = ["GitHub"]
+let publishUrl = "https://maven.atlassian.com/service/local/nuget/atlassian-nuget-private/"
 
 // project name and description
 let projectName = "Octokit"
@@ -105,6 +106,7 @@ Target "SourceLink" (fun _ ->
 
 Target "CreateOctokitPackage" (fun _ ->
     let net45Dir = packagingDir @@ "lib/net45/"
+    
     CleanDirs [net45Dir; ]
 
     CopyFile net45Dir (buildDir @@ "Release/Net45/Octokit.dll")
@@ -123,6 +125,7 @@ Target "CreateOctokitPackage" (fun _ ->
             Version = releaseNotes.AssemblyVersion + "-alpha"
             ReleaseNotes = toLines releaseNotes.Notes
             AccessKey = getBuildParamOrDefault "nugetkey" ""
+            PublishUrl = publishUrl
             Publish = hasBuildParam "nugetkey" }) "octokit.nuspec"
 )
 
@@ -146,6 +149,7 @@ Target "CreateOctokitSpiPackage" (fun _ ->
             Version = releaseNotes.AssemblyVersion + "-alpha"
             ReleaseNotes = toLines releaseNotes.Notes
             AccessKey = getBuildParamOrDefault "nugetkey" ""
+            PublishUrl = getBuildParamOrDefault "nugeturl" publishUrl
             Publish = hasBuildParam "nugetkey" }) "octokit.spi.nuspec"
 )
 
@@ -169,6 +173,7 @@ Target "CreateOctokitApiPackage" (fun _ ->
             Version = releaseNotes.AssemblyVersion + "-alpha"
             ReleaseNotes = toLines releaseNotes.Notes
             AccessKey = getBuildParamOrDefault "nugetkey" ""
+            PublishUrl = getBuildParamOrDefault "nugeturl" publishUrl
             Publish = hasBuildParam "nugetkey" }) "octokit.api.nuspec"
 )
 
@@ -188,10 +193,9 @@ Target "CreatePackages" DoNothing
    ==> "Default"
 
 "CreateOctokitSpiPackage"
-   ==> "CreatePackages"
+   =?> ("CreatePackages",releaseNotes.Date.IsSome)
 
 "CreateOctokitApiPackage"
-   ==> "CreatePackages"
-
+   =?> ("CreatePackages",releaseNotes.Date.IsSome)
 
 RunTargetOrDefault "Default"

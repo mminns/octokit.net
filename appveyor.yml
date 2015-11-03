@@ -1,7 +1,15 @@
 init:
   - git config --global core.autocrlf input
+environment:
+  access_token:
+    secure: cyvLxdGBSCXY+0B/xaUKTvmFYn8ji/BfI721QMWN5PDnZ57mMPDrIY9qVivwhlhT
 build_script:
   - cmd: build.spiapi.cmd BuildApp
   - cmd: build.spiapi.cmd UnitTests
   - cmd: build.spiapi.cmd CreatePackages
 test: off
+on_success:
+  - git config --global credential.helper store
+  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+  - git commit ...
+  - git push ...
