@@ -16,7 +16,7 @@ on_success:
   - git remote add octokit-mminns https://github.com/mminns/octokit.net.git
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
   - git add . -u
-  - git commit -m "Successful Build CI Build:{version}"
-  - git tag "{version}"
+  - git commit -m "Successful CI Build:{build}"
+  - git tag "ci-build-{build}"
   - git push octokit-mminns spiapi
   - git push octokit-mminns spiapi --tags
