@@ -18,5 +18,5 @@ on_success:
   - git add . -u
   - git commit -m "Successful Build CI Build:{version}"
   - git tag "{version}"
-  - git push octokit-mminns
-  - git push octokit-mminns --tags
+  - git push octokit-mminns spiapi
+  - git push octokit-mminns spiapi --tags
