@@ -17,4 +17,6 @@ on_success:
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
   - git add . -u
   - git commit -m "Successful Build CI Build:{version}"
+  - git tag "{version}"
   - git push octokit-mminns
+  - git push octokit-mminns --tags
