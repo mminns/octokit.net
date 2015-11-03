@@ -10,6 +10,8 @@ build_script:
 test: off
 on_success:
   - git config --global credential.helper store
+  - git config --global user.email "appveyor@itofinity.co.uk"
+  - git config --global user.name "App Veyor"
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
   - git add . -u
   - git commit -m "Successful Build CI Build:{version}"
