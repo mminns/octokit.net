@@ -1,7 +1,7 @@
 init:
   - git config --global core.autocrlf input
 build_script:
-  - cmd: buildsplit.cmd BuildApp
-  - cmd: buildsplit.cmd UnitTests
-  - cmd: buildsplit.cmd CreatePackages
+  - cmd: build.spiapi.cmd BuildApp
+  - cmd: build.spiapi.cmd UnitTests
+  - cmd: build.spiapi.cmd CreatePackages
 test: off
