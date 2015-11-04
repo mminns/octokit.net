@@ -170,7 +170,7 @@ Target "CreateOctokitApiPackage" (fun _ ->
             OutputPath = packagingRoot
             Summary = projectApiSummary
             WorkingDir = packagingApiDir
-            Version = releaseNotes.AssemblyVersion + "-alpha"
+            Version = releaseNotes.AssemblyVersion + "-beta"
             ReleaseNotes = toLines releaseNotes.Notes
             AccessKey = getBuildParamOrDefault "nugetkey" ""
             PublishUrl = getBuildParamOrDefault "nugeturl" publishUrl
