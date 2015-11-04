@@ -1,5 +1,7 @@
 init:
   - git config --global core.autocrlf input
+before_build:
+  - nuget restore .\Octokit.SpiApi.sln
 environment:
   access_token:
     secure: cyvLxdGBSCXY+0B/xaUKTvmFYn8ji/BfI721QMWN5PDnZ57mMPDrIY9qVivwhlhT
