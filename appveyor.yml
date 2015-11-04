@@ -14,15 +14,14 @@ build_script:
   - cmd: build.spiapi.cmd CreatePackages
 test: off
 on_success:
-  - ps: |
-    git config --global credential.helper store
-    git config --global user.email "$env:git_email"
-    git config --global user.name "$env:git_user"
-    git config --global push.default simple
-    git remote add octokit-mminns https://github.com/mminns/octokit.net.git
-    Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
-    git add . -u
-    git commit -m "Successful CI Build:$env:APPVEYOR_BUILD_NUMBER"
-    git tag "ci-build-$env:APPVEYOR_BUILD_NUMBER"
-    git push octokit-mminns spiapi
-    git push octokit-mminns spiapi --tags
+  - git config --global credential.helper store
+  - ps: git config --global user.email "$env:git_email"
+  - ps: git config --global user.name "$env:git_user"
+  - git config --global push.default simple
+  - git remote add octokit-mminns https://github.com/mminns/octokit.net.git
+  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+  - git add . -u
+  - ps: git commit -m "Successful CI Build:$env:APPVEYOR_BUILD_NUMBER"
+  - ps: git tag "ci-build-$env:APPVEYOR_BUILD_NUMBER"
+  - git push octokit-mminns spiapi
+  - git push octokit-mminns spiapi --tags
