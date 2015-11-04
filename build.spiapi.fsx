@@ -146,7 +146,7 @@ Target "CreateOctokitSpiPackage" (fun _ ->
             OutputPath = packagingRoot
             Summary = projectSpiSummary
             WorkingDir = packagingSpiDir
-            Version = releaseNotes.AssemblyVersion + "-alpha"
+            Version = releaseNotes.AssemblyVersion + "-beta"
             ReleaseNotes = toLines releaseNotes.Notes
             AccessKey = getBuildParamOrDefault "nugetkey" ""
             PublishUrl = getBuildParamOrDefault "nugeturl" publishUrl
