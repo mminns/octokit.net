@@ -2,6 +2,7 @@
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Octokit;
+using Octokit.Http;
 using Octokit.Tests.Helpers;
 using Octokit.Tests.Integration;
 using Xunit;
@@ -45,7 +46,7 @@ public class UsersClientTests
 
         class ObservableCredentialProvider : ICredentialStore
         {
-            public async Task<Credentials> GetCredentials()
+            public async Task<Octokit.Http.ICredentials> GetCredentials()
             {
                 return await Observable.Return(Helper.Credentials);
             }

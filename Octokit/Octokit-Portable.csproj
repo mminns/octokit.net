@@ -40,18 +40,190 @@
     <DocumentationFile>bin\Release\Portable\Octokit.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\Octokit.Api\Authentication\AnonymousAuthenticator.cs">
+      <Link>Authentication\AnonymousAuthenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Authentication\Authenticator.cs">
+      <Link>Authentication\Authenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Authentication\BasicAuthenticator.cs">
+      <Link>Authentication\BasicAuthenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Authentication\TokenAuthenticator.cs">
+      <Link>Authentication\TokenAuthenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Clients\ApiClient.cs">
+      <Link>Clients\ApiClient.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Clients\ApiPagination.cs">
+      <Link>Clients\ApiPagination.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Exceptions\ApiException.cs">
+      <Link>Exceptions\ApiException.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Exceptions\ApiValidationException.cs">
+      <Link>Exceptions\ApiValidationException.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Exceptions\AuthorizationException.cs">
+      <Link>Exceptions\AuthorizationException.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Exceptions\ForbiddenException.cs">
+      <Link>Exceptions\ForbiddenException.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Exceptions\LoginAttemptsExceededException.cs">
+      <Link>Exceptions\LoginAttemptsExceededException.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Exceptions\NotFoundException.cs">
+      <Link>Exceptions\NotFoundException.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Exceptions\RateLimitExceededException.cs">
+      <Link>Exceptions\RateLimitExceededException.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Exceptions\TwoFactorAuthorizationException.cs">
+      <Link>Exceptions\TwoFactorAuthorizationException.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Exceptions\TwoFactorChallengeFailedException.cs">
+      <Link>Exceptions\TwoFactorChallengeFailedException.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Exceptions\TwoFactorRequiredException.cs">
+      <Link>Exceptions\TwoFactorRequiredException.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Helpers\ApiExtensions.cs">
+      <Link>Helpers\ApiExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Helpers\CollectionExtensions.cs">
+      <Link>Helpers\CollectionExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Helpers\Ensure.cs">
+      <Link>Helpers\Ensure.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Helpers\ParameterAttribute.cs">
+      <Link>Helpers\ParameterAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Helpers\SerializeAsBase64Attribute.cs">
+      <Link>Helpers\SerializeAsBase64Attribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Helpers\SerializeNullAttribute.cs">
+      <Link>Helpers\SerializeNullAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Helpers\StringExtensions.cs">
+      <Link>Helpers\StringExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Helpers\UnixTimeStampExtensions.cs">
+      <Link>Helpers\UnixTimeStampExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Helpers\UriExtensions.cs">
+      <Link>Helpers\UriExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Http\ApiConnection.cs">
+      <Link>Http\ApiConnection.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Http\ApiInfo.cs">
+      <Link>Http\ApiInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Http\ApiInfoExtensions.cs">
+      <Link>Http\ApiInfoExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Http\ApiInfoParser.cs">
+      <Link>Http\ApiInfoParser.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Http\ApiResponse.cs">
+      <Link>Http\ApiResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Http\Connection.cs">
+      <Link>Http\Connection.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Http\Credentials.cs">
+      <Link>Http\Credentials.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Http\CredentialsExtensions.cs">
+      <Link>Http\CredentialsExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Http\HttpClientAdapter.cs">
+      <Link>Http\HttpClientAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Http\HttpMessageHandlerFactory.cs">
+      <Link>Http\HttpMessageHandlerFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Http\HttpVerb.cs">
+      <Link>Http\HttpVerb.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Http\InMemoryCredentialStore.cs">
+      <Link>Http\InMemoryCredentialStore.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Http\ProductHeaderValue.cs">
+      <Link>Http\ProductHeaderValue.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Http\RateLimit.cs">
+      <Link>Http\RateLimit.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Http\ReadOnlyPagedCollection.cs">
+      <Link>Http\ReadOnlyPagedCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Http\Request.cs">
+      <Link>Http\Request.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Http\Response.cs">
+      <Link>Http\Response.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Models\Response\ApiError.cs">
+      <Link>Models\Response\ApiError.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Api\Models\Response\ApiErrorDetail.cs">
+      <Link>Models\Response\ApiErrorDetail.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Authentication\AuthenticationType.cs">
+      <Link>Authentication\AuthenticationType.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Authentication\IAuthenticationHandler.cs">
+      <Link>Authentication\IAuthenticationHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Helpers\IApiPagination.cs">
+      <Link>Helpers\IApiPagination.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Helpers\IReadOnlyPagedCollection.cs">
+      <Link>Helpers\IReadOnlyPagedCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Http\IApiConnection.cs">
+      <Link>Http\IApiConnection.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Http\IApiInfo.cs">
+      <Link>Http\IApiInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Http\IApiInfoProvider.cs">
+      <Link>Http\IApiInfoProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Http\IApiResponse.cs">
+      <Link>Http\IApiResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Http\IConnection.cs">
+      <Link>Http\IConnection.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Http\ICredentials.cs">
+      <Link>Http\ICredentials.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Http\ICredentialStore.cs">
+      <Link>Http\ICredentialStore.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Http\IDataFormatPipeline.cs">
+      <Link>Http\IDataFormatPipeline.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Http\IDataFormatSerializer.cs">
+      <Link>Http\IDataFormatSerializer.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Http\IHttpClient.cs">
+      <Link>Http\IHttpClient.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Http\IRateLimit.cs">
+      <Link>Http\IRateLimit.cs</Link>
+    </Compile>
+    <Compile Include="..\Octokit.Spi\Http\IRequest.cs">
+      <Link>Http\IRequest.cs</Link>
+    </Compile>
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
-    <Compile Include="Authentication\AnonymousAuthenticator.cs" />
-    <Compile Include="Authentication\AuthenticationType.cs" />
-    <Compile Include="Authentication\Authenticator.cs" />
-    <Compile Include="Authentication\BasicAuthenticator.cs" />
-    <Compile Include="Authentication\IAuthenticationHandler.cs" />
-    <Compile Include="Authentication\TokenAuthenticator.cs" />
     <Compile Include="Clients\ActivitiesClient.cs" />
-    <Compile Include="Clients\ApiClient.cs" />
-    <Compile Include="Clients\ApiPagination.cs" />
     <Compile Include="Clients\AssigneesClient.cs" />
     <Compile Include="Clients\AuthorizationsClient.cs" />
     <Compile Include="Clients\BlobsClient.cs" />
@@ -123,57 +295,17 @@
     <Compile Include="Clients\TeamsClient.cs" />
     <Compile Include="Clients\UsersClient.cs" />
     <Compile Include="Clients\WatchedClient.cs" />
-    <Compile Include="Exceptions\ApiException.cs" />
-    <Compile Include="Exceptions\ApiValidationException.cs" />
-    <Compile Include="Exceptions\AuthorizationException.cs" />
-    <Compile Include="Exceptions\NotFoundException.cs" />
-    <Compile Include="Exceptions\TwoFactorChallengeFailedException.cs" />
-    <Compile Include="Exceptions\TwoFactorRequiredException.cs" />
-    <Compile Include="Helpers\ApiExtensions.cs" />
     <Compile Include="Helpers\ApiUrls.cs" />
     <Compile Include="Helpers\AuthorizationExtensions.cs" />
-    <Compile Include="Exceptions\ForbiddenException.cs" />
-    <Compile Include="Exceptions\LoginAttemptsExceededException.cs" />
-    <Compile Include="Exceptions\RateLimitExceededException.cs" />
-    <Compile Include="Helpers\CollectionExtensions.cs" />
     <Compile Include="Helpers\EnumExtensions.cs" />
-    <Compile Include="Helpers\IApiPagination.cs" />
-    <Compile Include="Helpers\IReadOnlyPagedCollection.cs" />
     <Compile Include="Helpers\ModelExtensions.cs" />
-    <Compile Include="Helpers\ParameterAttribute.cs" />
     <Compile Include="Helpers\ReflectionExtensions.cs" />
     <Compile Include="Helpers\TwoFactorChallengeResult.cs" />
-    <Compile Include="Helpers\UriExtensions.cs" />
-    <Compile Include="Http\ApiConnection.cs" />
-    <Compile Include="Http\ApiResponse.cs" />
-    <Compile Include="Http\Credentials.cs" />
-    <Compile Include="Http\CredentialsExtensions.cs" />
-    <Compile Include="Http\HttpVerb.cs" />
-    <Compile Include="Http\IApiConnection.cs" />
-    <Compile Include="Http\ICredentialStore.cs" />
-    <Compile Include="Http\IHttpClient.cs" />
-    <Compile Include="Http\InMemoryCredentialStore.cs" />
     <Compile Include="Http\JsonHttpPipeline.cs" />
-    <Compile Include="Http\RateLimit.cs" />
-    <Compile Include="Http\ReadOnlyPagedCollection.cs" />
-    <Compile Include="IGitHubClient.cs" />
-    <Compile Include="Http\ApiInfoExtensions.cs" />
-    <Compile Include="Http\ApiInfoParser.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Http\ApiInfo.cs" />
-    <Compile Include="Http\IJsonSerializer.cs" />
+    <Compile Include="Http\RequestBody.cs" />
     <Compile Include="Http\SimpleJsonSerializer.cs" />
-    <Compile Include="Helpers\Ensure.cs" />
+    <Compile Include="IGitHubClient.cs" />
     <Compile Include="GitHubClient.cs" />
-    <Compile Include="Http\Connection.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Http\HttpClientAdapter.cs" />
-    <Compile Include="Http\IConnection.cs" />
-    <Compile Include="Http\IRequest.cs" />
-    <Compile Include="Http\IResponse.cs" />
-    <Compile Include="Http\Request.cs" />
     <Compile Include="Models\Request\AuthorizationUpdate.cs" />
     <Compile Include="Models\Request\EditRepositoryHook.cs" />
     <Compile Include="Models\Request\GistRequest.cs" />
@@ -227,8 +359,6 @@
     <Compile Include="Models\Response\ActivityPayloads\PullRequestEventPayload.cs" />
     <Compile Include="Models\Response\ActivityPayloads\PushEventPayload.cs" />
     <Compile Include="Models\Response\ActivityPayloads\StarredEventPayload.cs" />
-    <Compile Include="Models\Response\ApiError.cs" />
-    <Compile Include="Models\Response\ApiErrorDetail.cs" />
     <Compile Include="Models\Response\Application.cs" />
     <Compile Include="Models\Response\Author.cs" />
     <Compile Include="Models\Response\Authorization.cs" />
@@ -281,7 +411,6 @@
     <Compile Include="Models\Response\WeeklyCommitActivity.cs" />
     <Compile Include="Models\Response\WeeklyHash.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="SimpleJson.cs" />
     <Compile Include="Models\Response\SearchCode.cs" />
     <Compile Include="Clients\ISearchClient.cs" />
@@ -319,12 +448,10 @@
     <Compile Include="Models\Response\AdditionsAndDeletions.cs" />
     <Compile Include="Models\Response\CodeFrequency.cs" />
     <Compile Include="Models\Response\CommitActivity.cs" />
-    <Compile Include="Helpers\UnixTimeStampExtensions.cs" />
     <Compile Include="Models\Response\PullRequestCommit.cs" />
     <Compile Include="Exceptions\RepositoryExistsException.cs" />
     <Compile Include="Helpers\ApiErrorExtensions.cs" />
     <Compile Include="Exceptions\PrivateRepositoryQuotaExceededException.cs" />
-    <Compile Include="Http\ProductHeaderValue.cs" />
     <Compile Include="Clients\IRepositoryCommentsClient.cs" />
     <Compile Include="Clients\RepositoryCommentsClient.cs" />
     <Compile Include="Models\Request\NewCommitComment.cs" />
@@ -358,7 +485,6 @@
     <Compile Include="Clients\IUserKeysClient.cs" />
     <Compile Include="Clients\UserKeysClient.cs" />
     <Compile Include="Helpers\ApiUrls.Keys.cs" />
-    <Compile Include="Helpers\SerializeNullAttribute.cs" />
     <Compile Include="Models\Request\CommitRequest.cs" />
     <Compile Include="Models\Request\OrganizationUpdate.cs" />
     <Compile Include="Models\Response\RepositoryPermissions.cs" />
@@ -370,7 +496,6 @@
     <Compile Include="Models\Request\NewThreadSubscription.cs" />
     <Compile Include="Models\Request\CreateFileRequest.cs" />
     <Compile Include="Models\Request\Signature.cs" />
-    <Compile Include="Helpers\SerializeAsBase64Attribute.cs" />
     <Compile Include="Models\Response\ContentType.cs" />
     <Compile Include="Models\Response\RepositoryContent.cs" />
     <Compile Include="Models\Response\RepositoryContentChangeSet.cs" />
@@ -379,7 +504,6 @@
     <Compile Include="Helpers\ApiUrls.Authorizations.cs" />
     <Compile Include="Models\Response\ApplicationAuthorization.cs" />
     <Compile Include="Models\Response\SearchResult.cs" />
-    <Compile Include="Http\Response.cs" />
     <Compile Include="Models\Response\PublicKey.cs" />
     <Compile Include="Models\Request\GistFileUpdate.cs" />
     <Compile Include="Models\Request\ReleaseAssetUpload.cs" />
@@ -390,14 +514,10 @@
     <Compile Include="Models\Response\LicenseMetadata.cs" />
     <Compile Include="Models\Response\PullRequestFile.cs" />
     <Compile Include="Models\Request\PublicRepositoryRequest.cs" />
-    <Compile Include="Exceptions\TwoFactorAuthorizationException.cs" />
-    <Compile Include="Http\HttpMessageHandlerFactory.cs" />
     <Compile Include="Models\Response\TeamMembership.cs" />
     <Compile Include="Models\Response\ResourceRateLimit.cs" />
     <Compile Include="Models\Response\MiscellaneousRateLimit.cs" />
     <Compile Include="Exceptions\RepositoryFormatException.cs" />
-    <Compile Include="Http\RequestBody.cs" />
-    <Compile Include="Http\IApiInfoProvider.cs" />
     <Compile Include="Models\Response\Meta.cs" />
     <Compile Include="Models\Common\Committer.cs" />
   </ItemGroup>

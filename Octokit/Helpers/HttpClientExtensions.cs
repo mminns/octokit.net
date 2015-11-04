@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Octokit.Http;
 using Octokit.Internal;
 
 namespace Octokit

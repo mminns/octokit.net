@@ -1,4 +1,4 @@
-# Octokit - GitHub API Client Library for .NET [![Build Status](https://ci.appveyor.com/api/projects/status/github/octokit/octokit.net?branch=master)](https://ci.appveyor.com/project/Haacked15676/octokit-net)
+# Octokit - GitHub API Client Library for .NET [![Build Status](https://ci.appveyor.com/api/projects/status/github/mminns/octokit.net?branch=master)](https://ci.appveyor.com/project/Haacked15676/octokit-net)
 
 ![logo](octokit-dotnet_2.png)
 
@@ -40,7 +40,7 @@ In Xamarin Studio you can find this option under the project's context menu: **A
 
 ## Documentation
 
-Please see https://github.com/octokit/octokit.net/blob/master/docs/index.md for more detailed documentation.
+Please see https://github.com/mminns/octokit.net/blob/master/docs/index.md for more detailed documentation.
 
 ## Build
 
@@ -54,14 +54,14 @@ To clone it locally click the "Clone in Windows" button above or run the
 following git commands.
 
 ```
-git clone git@github.com:octokit/Octokit.net.git Octokit
+git clone git@github.com:mminns/octokit.net.git Octokit
 cd Octokit
 .\build.cmd
 ```
 
 ## Contribute
 
-Visit the [Contributor Guidelines](https://github.com/octokit/octokit.net/blob/master/CONTRIBUTING.md) 
+Visit the [Contributor Guidelines](https://github.com/mminns/octokit.net/blob/master/CONTRIBUTING.md) 
 for more details.
 
 ## Build Server
@@ -71,7 +71,7 @@ The builds and tests for Octokit.net are run on [AppVeyor](http://www.appveyor.c
 ## Problems?
 
 Octokit is 100% certified to be bug free. If you find an issue with our 
-certification, please visit the [issue tracker](https://github.com/octokit/octokit.net/issues) 
+certification, please visit the [issue tracker](https://github.com/mminns/octokit.net/issues) 
 and report the issue. 
 
 Please be kind and search to see if the issue is already logged before creating
@@ -95,4 +95,4 @@ problem.
 
 Copyright 2013 GitHub, Inc.
 
-Licensed under the [MIT License](https://github.com/octokit/octokit.net/blob/master/LICENSE.txt)
+Licensed under the [MIT License](https://github.com/mminns/octokit.net/blob/master/LICENSE.txt)

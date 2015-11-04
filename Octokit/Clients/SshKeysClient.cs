@@ -1,6 +1,8 @@
 ﻿#if NET_45
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Octokit.Helpers;
+
 #endif
 
 namespace Octokit
@@ -37,7 +39,7 @@ namespace Octokit
         /// Retrieves the <see cref="SshKey"/> for the specified id.
         /// </summary>
         /// <param name="user">The login of the user</param>
-        /// <returns>A <see cref="IReadOnlyPagedCollection{SshKey}"/> of <see cref="SshKey"/>.</returns>
+        /// <returns>A <see cref="IReadOnlyPagedCollection{T}"/> of <see cref="SshKey"/>.</returns>
         public Task<IReadOnlyList<SshKey>> GetAll(string user)
         {
             Ensure.ArgumentNotNullOrEmptyString(user, "user");

@@ -1,5 +1,4 @@
 ### New in 0.17.0 (released TBD)
-
 * Improved: Added ability to create deploy keys that are read only and can only be used to read repository contents and not write to them - via #915 @haacked
 * Improved: Added `Content` property to `NewTreeItem` to allow specifying content for a tree - via #915 @haacked
 * Improved: Added `Description` property to `NewTeam` to allow specifying a description for a team - via #915 @haacked
@@ -12,6 +11,7 @@
  - `NewDeployment` constructor requires a ref as this is required for the API. It no longer has a default constructor.
  - `NewDeploymentStatus` constructor requires a `DeploymentState` as this is required for the API. It no longer has a default constructor.
  - The `Name` property of `NewTeam` is now read only. It is specified via the constructor.
+ - Split out Octokit.Spi and Octokit.Api to allow for creation of other REST clients based upon the Octokit pattern.
 
 ### New in 0.16.0 (released 2015/09/17)
 

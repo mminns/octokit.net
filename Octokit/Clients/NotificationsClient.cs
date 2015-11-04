@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Octokit.Helpers;
 
 namespace Octokit
 {
@@ -23,7 +24,7 @@ namespace Octokit
         /// Retrieves all of the <see cref="Notification"/>s for the current user.
         /// </summary>
         /// <exception cref="AuthorizationException">Thrown if the client is not authenticated.</exception>
-        /// <returns>A <see cref="IReadOnlyPagedCollection{Notification}"/> of <see cref="Notification"/>.</returns>
+        /// <returns>A <see cref="IReadOnlyPagedCollection{T}"/> of <see cref="Notification"/>.</returns>
         public Task<IReadOnlyList<Notification>> GetAllForCurrent()
         {
             return ApiConnection.GetAll<Notification>(ApiUrls.Notifications());

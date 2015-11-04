@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
+using Octokit.Http;
 
 namespace Octokit.Reactive.Internal
 {
@@ -27,7 +28,8 @@ namespace Octokit.Reactive.Internal
         {
             return getPageFunc(uri, parameters).Expand(resp =>
             {
-                var nextPageUrl = resp.HttpResponse.ApiInfo.GetNextPageUrl();
+                // TODO nasty catch to get the Extension method...
+                var nextPageUrl = ((ApiInfo)resp.HttpResponse.ApiInfo).GetNextPageUrl();
                 return nextPageUrl == null
                     ? Observable.Empty<IApiResponse<List<T>>>()
                     : Observable.Defer(() => getPageFunc(nextPageUrl, null));

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Octokit.Http;
 
 namespace Octokit
 {
@@ -17,7 +18,7 @@ namespace Octokit
             Ensure.ArgumentNotNull(connection, "connection");
 
             this.connection = connection;
-            var baseAddress = connection.BaseAddress ?? GitHubClient.GitHubDotComUrl;
+            var baseAddress = connection.BaseAddress ?? GitHubClient.GitHubDotcomUrl;
 
             // The Oauth login stuff uses https://github.com and not the https://api.github.com URLs.
             hostAddress = baseAddress.Host.Equals("api.github.com")

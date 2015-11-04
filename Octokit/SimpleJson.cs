@@ -1622,7 +1622,7 @@ namespace Octokit
 #if SIMPLE_JSON_REFLECTION_UTILS_PUBLIC
         public
 #else
-        internal
+        public
 #endif
  class ReflectionUtils
         {

@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using NSubstitute;
 using NSubstitute.Core.Arguments;
+using Octokit.Http;
 using Octokit.Internal;
 using Octokit.Tests.Helpers;
 using Xunit;
@@ -31,7 +32,7 @@ namespace Octokit.Tests.Http
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    Substitute.For<IDataFormatPipeline>());
 
                 await connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative));
 
@@ -53,7 +54,7 @@ namespace Octokit.Tests.Http
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    Substitute.For<IDataFormatPipeline>());
 
                 await connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative));
                 await connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative));
@@ -76,11 +77,12 @@ namespace Octokit.Tests.Http
                 IResponse response = new Response(headers);
                 
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
+                var pipeline = new JsonHttpPipeline(Substitute.For<IDataFormatSerializer>());
                 var connection = new Connection(new ProductHeaderValue("OctokitTests"),
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    pipeline);
 
                 var resp = await connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative));
                 Assert.NotNull(resp.HttpResponse.ApiInfo);
@@ -97,7 +99,7 @@ namespace Octokit.Tests.Http
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    Substitute.For<IDataFormatPipeline>());
 
                 var exception = await Assert.ThrowsAsync<AuthorizationException>(
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
@@ -121,7 +123,7 @@ namespace Octokit.Tests.Http
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    Substitute.For<IDataFormatPipeline>());
 
                 var exception = await Assert.ThrowsAsync<AuthorizationException>(
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
@@ -148,7 +150,7 @@ namespace Octokit.Tests.Http
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    Substitute.For<IDataFormatPipeline>());
 
                 var exception = await Assert.ThrowsAsync<TwoFactorRequiredException>(
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
@@ -160,19 +162,27 @@ namespace Octokit.Tests.Http
             public async Task ThrowsApiValidationExceptionFor422Response()
             {
                 var httpClient = Substitute.For<IHttpClient>();
+                var message = @"{""errors"":[{""code"":""custom"",""field"":""key"",""message"":""key is " +
+                              @"already in use"",""resource"":""PublicKey""}],""message"":""Validation Failed""}";
                 IResponse response = new Response(
                     (HttpStatusCode)422,
-                    @"{""errors"":[{""code"":""custom"",""field"":""key"",""message"":""key is " +
-                    @"already in use"",""resource"":""PublicKey""}],""message"":""Validation Failed""}",
+                    message,
                     new Dictionary<string, string>(),
                     "application/json"
                 );
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
+                var serializer = Substitute.For<IDataFormatSerializer>();
+                serializer.Deserialize<ApiError>(message).Returns(new ApiError("Validation Failed", null, new List<ApiErrorDetail>()
+                {
+                    new ApiErrorDetail("key is already in use", null, null, null)
+                }));
+                var pipeLine = new JsonHttpPipeline(serializer);
                 var connection = new Connection(new ProductHeaderValue("OctokitTests"),
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    pipeLine
+                    );
 
                 var exception = await Assert.ThrowsAsync<ApiValidationException>(
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
@@ -185,18 +195,22 @@ namespace Octokit.Tests.Http
             public async Task ThrowsRateLimitExceededExceptionForForbidderResponse()
             {
                 var httpClient = Substitute.For<IHttpClient>();
+                var message = "{\"message\":\"API rate limit exceeded. " +
+                              "See http://developer.github.com/v3/#rate-limiting for details.\"}";
                 IResponse response = new Response(
                     HttpStatusCode.Forbidden,
-                    "{\"message\":\"API rate limit exceeded. " +
-                    "See http://developer.github.com/v3/#rate-limiting for details.\"}",
+                    message,
                     new Dictionary<string, string>(),
                     "application/json");
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
+                var serializer = Substitute.For<IDataFormatSerializer>();
+                serializer.Deserialize<ApiError>(message).Returns(new ApiError("API rate limit exceeded. See http://developer.github.com/v3/#rate-limiting for details."));
+                var pipeLine = new JsonHttpPipeline(serializer);
                 var connection = new Connection(new ProductHeaderValue("OctokitTests"),
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    pipeLine);
 
                 var exception = await Assert.ThrowsAsync<RateLimitExceededException>(
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
@@ -209,18 +223,22 @@ namespace Octokit.Tests.Http
             public async Task ThrowsLoginAttemptsExceededExceptionForForbiddenResponse()
             {
                 var httpClient = Substitute.For<IHttpClient>();
+                var message = "{\"message\":\"Maximum number of login attempts exceeded\"," +
+                              "\"documentation_url\":\"http://developer.github.com/v3\"}";
                 IResponse response = new Response(
                     HttpStatusCode.Forbidden,
-                    "{\"message\":\"Maximum number of login attempts exceeded\"," +
-                    "\"documentation_url\":\"http://developer.github.com/v3\"}",
+                    message,
                     new Dictionary<string, string>(),
                     "application/json");
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
+                var serializer = Substitute.For<IDataFormatSerializer>();
+                serializer.Deserialize<ApiError>(message).Returns(new ApiError("Maximum number of login attempts exceeded", "http://developer.github.com/v3", new List<ApiErrorDetail>()));
+                var pipeLine = new JsonHttpPipeline(serializer);
                 var connection = new Connection(new ProductHeaderValue("OctokitTests"),
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    pipeLine);
 
                 var exception = await Assert.ThrowsAsync<LoginAttemptsExceededException>(
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
@@ -244,7 +262,7 @@ namespace Octokit.Tests.Http
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    Substitute.For<IDataFormatPipeline>());
 
                 var exception = await Assert.ThrowsAsync<NotFoundException>(
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
@@ -266,7 +284,7 @@ namespace Octokit.Tests.Http
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    Substitute.For<IDataFormatPipeline>());
 
                 var exception = await Assert.ThrowsAsync<ForbiddenException>(
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
@@ -287,7 +305,7 @@ namespace Octokit.Tests.Http
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    Substitute.For<IDataFormatPipeline>());
 
                 await connection.GetHtml(new Uri("endpoint", UriKind.Relative));
 
@@ -310,11 +328,15 @@ namespace Octokit.Tests.Http
                 var httpClient = Substitute.For<IHttpClient>();
                 IResponse response = new Response();
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
+
+                var serializer = Substitute.For<IDataFormatSerializer>();
+                serializer.Serialize(NSubstitute.Arg.Any<object>()).Returns(data);
+                var pipeLine = new JsonHttpPipeline(serializer);
                 var connection = new Connection(new ProductHeaderValue("OctokitTests"),
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    pipeLine);
 
                 await connection.Patch<string>(new Uri("endpoint", UriKind.Relative), new object());
 
@@ -336,7 +358,7 @@ namespace Octokit.Tests.Http
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    Substitute.For<IDataFormatPipeline>());
 
                 await connection.Patch<string>(new Uri("endpoint", UriKind.Relative), new object(), "custom/accepts");
 
@@ -354,11 +376,14 @@ namespace Octokit.Tests.Http
                 var httpClient = Substitute.For<IHttpClient>();
                 IResponse response = new Response();
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
+                var serializer = Substitute.For<IDataFormatSerializer>();
+                serializer.Serialize(NSubstitute.Arg.Any<object>()).Returns(expectedBody);
+                var pipeLine = new JsonHttpPipeline(serializer);
                 var connection = new Connection(new ProductHeaderValue("OctokitTests"),
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    pipeLine);
 
                 await connection.Put<string>(new Uri("endpoint", UriKind.Relative), body);
 
@@ -378,11 +403,14 @@ namespace Octokit.Tests.Http
                 var httpClient = Substitute.For<IHttpClient>();
                 IResponse response = new Response();
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
+                var serializer = Substitute.For<IDataFormatSerializer>();
+                serializer.Serialize(NSubstitute.Arg.Any<object>()).Returns(expectedBody);
+                var pipeLine = new JsonHttpPipeline(serializer);
                 var connection = new Connection(new ProductHeaderValue("OctokitTests"),
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    pipeLine);
 
                 await connection.Put<string>(new Uri("endpoint", UriKind.Relative), body);
 
@@ -403,11 +431,14 @@ namespace Octokit.Tests.Http
                 var httpClient = Substitute.For<IHttpClient>();
                 IResponse response = new Response();
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
+                var serializer = Substitute.For<IDataFormatSerializer>();
+                serializer.Serialize(NSubstitute.Arg.Any<object>()).Returns(expectedBody);
+                var pipeLine = new JsonHttpPipeline(serializer);
                 var connection = new Connection(new ProductHeaderValue("OctokitTests"),
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    pipeLine);
 
                 await connection.Put<string>(new Uri("endpoint", UriKind.Relative), body, "two-factor");
 
@@ -428,11 +459,14 @@ namespace Octokit.Tests.Http
                 var httpClient = Substitute.For<IHttpClient>();
                 IResponse response = new Response();
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
+                var serializer = Substitute.For<IDataFormatSerializer>();
+                serializer.Serialize(NSubstitute.Arg.Any<object>()).Returns(expectedBody);
+                var pipeLine = new JsonHttpPipeline(serializer);
                 var connection = new Connection(new ProductHeaderValue("OctokitTests"),
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    pipeLine);
 
                 await connection.Put<string>(new Uri("endpoint", UriKind.Relative), body, "two-factor");
 
@@ -454,11 +488,14 @@ namespace Octokit.Tests.Http
                 var httpClient = Substitute.For<IHttpClient>();
                 IResponse response = new Response();
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
+                var serializer = Substitute.For<IDataFormatSerializer>();
+                serializer.Serialize(NSubstitute.Arg.Any<object>()).Returns(data);
+                var pipeLine = new JsonHttpPipeline(serializer);
                 var connection = new Connection(new ProductHeaderValue("OctokitTests"),
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    pipeLine);
 
                 await connection.Post<string>(new Uri("endpoint", UriKind.Relative), new object(), null, null);
 
@@ -476,11 +513,12 @@ namespace Octokit.Tests.Http
                 var httpClient = Substitute.For<IHttpClient>();
                 IResponse response = new Response();
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
+                var pipeline = new JsonHttpPipeline(Substitute.For<IDataFormatSerializer>());
                 var connection = new Connection(new ProductHeaderValue("OctokitTests"),
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    pipeline);
 
                 var body = new MemoryStream(new byte[] { 48, 49, 50 });
                 await connection.Post<string>(
@@ -508,7 +546,7 @@ namespace Octokit.Tests.Http
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    Substitute.For<IDataFormatPipeline>());
                 var body = new MemoryStream(new byte[] { 48, 49, 50 });
 
                 await connection.Post<string>(
@@ -535,7 +573,7 @@ namespace Octokit.Tests.Http
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    Substitute.For<IDataFormatPipeline>());
 
                 await connection.Delete(new Uri("endpoint", UriKind.Relative));
 
@@ -554,38 +592,42 @@ namespace Octokit.Tests.Http
             public void EnsuresAbsoluteBaseAddress()
             {
                 Assert.Throws<ArgumentException>(() =>
-                    new Connection(new ProductHeaderValue("TestRunner"), new Uri("foo", UriKind.Relative)));
+                    new Connection(new ProductHeaderValue("TestRunner"), new Uri("foo", UriKind.Relative), GitHubClient.AnonymousCredentials, GitHubClient.DataPipeline));
                 Assert.Throws<ArgumentException>(() =>
-                    new Connection(new ProductHeaderValue("TestRunner"), new Uri("foo", UriKind.RelativeOrAbsolute)));
+                    new Connection(new ProductHeaderValue("TestRunner"), new Uri("foo", UriKind.RelativeOrAbsolute), GitHubClient.AnonymousCredentials, GitHubClient.DataPipeline));
             }
 
             [Fact]
             public void EnsuresNonNullArguments()
             {
+                //TODO extend this to match new constructurs
                 // 1 arg
-                Assert.Throws<ArgumentNullException>(() => new Connection(null));
+                Assert.Throws<ArgumentNullException>(() => new Connection(null, null, null, null));
                 
                 // 2 args
-                Assert.Throws<ArgumentNullException>(() => new Connection(null, new Uri("https://example.com"))); 
-                Assert.Throws<ArgumentNullException>(() => new Connection(new ProductHeaderValue("test"), (Uri)null));
+                Assert.Throws<ArgumentNullException>(() => new Connection(null, new Uri("https://example.com"), GitHubClient.AnonymousCredentials, GitHubClient.DataPipeline)); 
+                Assert.Throws<ArgumentNullException>(() => new Connection(new ProductHeaderValue("test"), (Uri)null, GitHubClient.AnonymousCredentials, GitHubClient.DataPipeline));
 
                 // 3 args
                 Assert.Throws<ArgumentNullException>(() => new Connection(null,
                     new Uri("https://example.com"),
-                    Substitute.For<ICredentialStore>()));
+                    Substitute.For<ICredentialStore>(),
+                    GitHubClient.DataPipeline));
                 Assert.Throws<ArgumentNullException>(() => new Connection(new ProductHeaderValue("foo"),
                     null,
-                    Substitute.For<ICredentialStore>()));
+                    Substitute.For<ICredentialStore>(),
+                    GitHubClient.DataPipeline));
                 Assert.Throws<ArgumentNullException>(() => new Connection(new ProductHeaderValue("foo"),
                     new Uri("https://example.com"),
-                    null));
+                    null,
+                    GitHubClient.DataPipeline));
 
                 // 5 Args
                 Assert.Throws<ArgumentNullException>(() => new Connection(null
                     , new Uri("https://example.com"),
                     Substitute.For<ICredentialStore>(),
                     Substitute.For<IHttpClient>(),
-                    Substitute.For<IJsonSerializer>()));
+                    Substitute.For<IDataFormatPipeline>()));
                 Assert.Throws<ArgumentNullException>(() => new Connection(new ProductHeaderValue("foo"),
                     new Uri("https://example.com"),
                     Substitute.For<ICredentialStore>(),
@@ -595,23 +637,23 @@ namespace Octokit.Tests.Http
                     new Uri("https://example.com"),
                     Substitute.For<ICredentialStore>(),
                     null,
-                    Substitute.For<IJsonSerializer>()));
+                    Substitute.For<IDataFormatPipeline>()));
                 Assert.Throws<ArgumentNullException>(() => new Connection(new ProductHeaderValue("foo"),
                     new Uri("https://example.com"),
                     null,
                     Substitute.For<IHttpClient>(),
-                    Substitute.For<IJsonSerializer>()));
+                    Substitute.For<IDataFormatPipeline>()));
                 Assert.Throws<ArgumentNullException>(() => new Connection(new ProductHeaderValue("foo"),
                     null,
                     Substitute.For<ICredentialStore>(),
                     Substitute.For<IHttpClient>(),
-                    Substitute.For<IJsonSerializer>()));
+                    Substitute.For<IDataFormatPipeline>()));
             }
 
             [Fact]
             public void CreatesConnectionWithBaseAddress()
             {
-                var connection = new Connection(new ProductHeaderValue("OctokitTests"), new Uri("https://github.com/"));
+                var connection = new Connection(new ProductHeaderValue("OctokitTests"), new Uri("https://github.com/"), GitHubClient.AnonymousCredentials, GitHubClient.DataPipeline);
 
                 Assert.Equal(new Uri("https://github.com/"), connection.BaseAddress);
                 Assert.True(connection.UserAgent.StartsWith("OctokitTests ("));
@@ -628,7 +670,7 @@ namespace Octokit.Tests.Http
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    Substitute.For<IDataFormatPipeline>());
 
                 var result = connection.GetLastApiInfo();
 
@@ -688,7 +730,7 @@ namespace Octokit.Tests.Http
                     _exampleUri,
                     Substitute.For<ICredentialStore>(),
                     httpClient,
-                    Substitute.For<IJsonSerializer>());
+                    Substitute.For<IDataFormatPipeline>());
 
                 connection.Get<PullRequest>(new Uri("https://example.com"), TimeSpan.MaxValue);
 

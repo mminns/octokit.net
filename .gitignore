@@ -84,3 +84,4 @@ tools/xunit.runner.console
 *.pdb
 pingme.txt
 Backup/
+packages/

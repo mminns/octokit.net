@@ -18,7 +18,7 @@ namespace Octokit.Tests.Exceptions
             {
                 var response = new Response(HttpStatusCode.Forbidden, null, new Dictionary<string, string>(), "application/json");
 
-                var exception = new LoginAttemptsExceededException(response);
+                var exception = new LoginAttemptsExceededException(response, new SimpleJsonSerializer());
 
                 Assert.Equal("Maximum number of login attempts exceeded", exception.Message);
             }

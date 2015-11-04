@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using NSubstitute;
 using Octokit;
+using Octokit.Http;
 using Octokit.Internal;
 using Xunit;
 

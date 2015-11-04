@@ -18,7 +18,7 @@ namespace Octokit.Tests.Exceptions
             {
                 var response = new Response(HttpStatusCode.Unauthorized, null, new Dictionary<string, string>(), "application/json");
 
-                var exception = new TwoFactorRequiredException(response, TwoFactorType.Sms);
+                var exception = new TwoFactorRequiredException(response, TwoFactorType.Sms, new SimpleJsonSerializer());
 
                 Assert.Equal("Two-factor authentication code is required", exception.Message);
             }

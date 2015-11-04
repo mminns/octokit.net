@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Octokit.Helpers;
 #if NET_45
 using System.Collections.Generic;
 #endif
@@ -183,7 +184,7 @@ namespace Octokit
         /// </remarks>
         /// <exception cref="AuthorizationException">Thrown if the client is not authenticated.</exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A <see cref="IReadOnlyPagedCollection{Repository}"/> of <see cref="Repository"/>.</returns>
+        /// <returns>A <see cref="IReadOnlyPagedCollection{T}"/> of <see cref="Repository"/>.</returns>
         public Task<IReadOnlyList<Repository>> GetAllPublic()
         {
             return ApiConnection.GetAll<Repository>(ApiUrls.AllPublicRepositories());

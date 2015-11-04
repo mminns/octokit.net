@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Octokit.Helpers;
 
 namespace Octokit
 {
@@ -17,7 +18,7 @@ namespace Octokit
         /// <param name="owner">The owner of the repository</param>
         /// <param name="name">The name of the repository</param>
         /// <exception cref="AuthorizationException">Thrown if the client is not authenticated.</exception>
-        /// <returns>A <see cref="IReadOnlyPagedCollection{User}"/> of <see cref="User"/>s starring the passed repository.</returns>
+        /// <returns>A <see cref="IReadOnlyPagedCollection{T}"/> of <see cref="User"/>s starring the passed repository.</returns>
         Task<IReadOnlyList<User>> GetAllStargazers(string owner, string name);
 
         /// <summary>

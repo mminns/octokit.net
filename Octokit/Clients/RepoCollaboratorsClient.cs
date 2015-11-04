@@ -1,6 +1,8 @@
 ﻿#if NET_45
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Octokit.Helpers;
+
 #endif
 
 namespace Octokit
@@ -29,7 +31,7 @@ namespace Octokit
         /// See the <a href="http://developer.github.com/v3/repos/collaborators/#list">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A <see cref="IReadOnlyPagedCollection{User}"/> of <see cref="User"/>.</returns>
+        /// <returns>A <see cref="IReadOnlyPagedCollection{T}"/> of <see cref="User"/>.</returns>
         public Task<IReadOnlyList<User>> GetAll(string owner, string repo)
         {
             Ensure.ArgumentNotNullOrEmptyString(owner, "owner");

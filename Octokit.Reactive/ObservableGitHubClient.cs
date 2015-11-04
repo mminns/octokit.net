@@ -1,4 +1,5 @@
 ﻿using System;
+using Octokit.Http;
 
 namespace Octokit.Reactive
 {
@@ -73,7 +74,7 @@ namespace Octokit.Reactive
         /// Gets the latest API Info - this will be null if no API calls have been made
         /// </summary>
         /// <returns><seealso cref="ApiInfo"/> representing the information returned as part of an Api call</returns>
-        public ApiInfo GetLastApiInfo()
+        public IApiInfo GetLastApiInfo()
         { 
             return _gitHubClient.Connection.GetLastApiInfo();
         }

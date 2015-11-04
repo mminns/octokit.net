@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using NSubstitute;
 using Octokit.Helpers;
+using Octokit.Tests.Helpers;
 using Xunit;
 
 namespace Octokit.Tests.Clients

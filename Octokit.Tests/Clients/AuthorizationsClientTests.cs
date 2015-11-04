@@ -123,7 +123,7 @@ namespace Octokit.Tests.Clients
                 client.Put<ApplicationAuthorization>(Args.Uri, Args.Object, Args.String)
                     .ThrowsAsync<ApplicationAuthorization>(
                     new AuthorizationException(
-                        new Response(HttpStatusCode.Unauthorized , null, new Dictionary<string, string>(), "application/json")));
+                        new Response(HttpStatusCode.Unauthorized , null, new Dictionary<string, string>(), "application/json"), new SimpleJsonSerializer()));
                 var authEndpoint = new AuthorizationsClient(client);
 
                 await Assert.ThrowsAsync<TwoFactorChallengeFailedException>(() =>

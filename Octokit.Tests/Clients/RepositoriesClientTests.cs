@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using NSubstitute;
+using Octokit.Http;
+using Octokit.Internal;
 using Octokit.Tests.Helpers;
 using Xunit;
 
@@ -70,7 +72,7 @@ namespace Octokit.Tests.Clients
                 connection.Connection.BaseAddress.Returns(GitHubClient.GitHubApiUrl);
                 connection.Connection.Credentials.Returns(credentials);
                 connection.Post<Repository>(Args.Uri, newRepository)
-                    .Returns<Task<Repository>>(_ => { throw new ApiValidationException(response); });
+                    .Returns<Task<Repository>>(_ => { throw new ApiValidationException(response, new SimpleJsonSerializer()); });
                 var client = new RepositoriesClient(connection);
 
                 var exception = await Assert.ThrowsAsync<RepositoryExistsException>(
@@ -97,7 +99,7 @@ namespace Octokit.Tests.Clients
                 connection.Connection.BaseAddress.Returns(GitHubClient.GitHubApiUrl);
                 connection.Connection.Credentials.Returns(credentials);
                 connection.Post<Repository>(Args.Uri, newRepository)
-                    .Returns<Task<Repository>>(_ => { throw new ApiValidationException(response); });
+                    .Returns<Task<Repository>>(_ => { throw new ApiValidationException(response, new SimpleJsonSerializer()); });
                 var client = new RepositoriesClient(connection);
 
                 var exception = await Assert.ThrowsAsync<PrivateRepositoryQuotaExceededException>(
@@ -155,7 +157,7 @@ namespace Octokit.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 connection.Connection.BaseAddress.Returns(GitHubClient.GitHubApiUrl);
                 connection.Post<Repository>(Args.Uri, newRepository)
-                    .Returns<Task<Repository>>(_ => { throw new ApiValidationException(response); });
+                    .Returns<Task<Repository>>(_ => { throw new ApiValidationException(response, new SimpleJsonSerializer()); });
                 var client = new RepositoriesClient(connection);
 
                 var exception = await Assert.ThrowsAsync<RepositoryExistsException>(
@@ -180,7 +182,7 @@ namespace Octokit.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 connection.Connection.BaseAddress.Returns(GitHubClient.GitHubApiUrl);
                 connection.Post<Repository>(Args.Uri, newRepository)
-                    .Returns<Task<Repository>>(_ => { throw new ApiValidationException(response); });
+                    .Returns<Task<Repository>>(_ => { throw new ApiValidationException(response, new SimpleJsonSerializer()); });
                 var client = new RepositoriesClient(connection);
 
                 var exception = await Assert.ThrowsAsync<ApiValidationException>(
@@ -201,7 +203,7 @@ namespace Octokit.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 connection.Connection.BaseAddress.Returns(new Uri("https://example.com"));
                 connection.Post<Repository>(Args.Uri, newRepository)
-                    .Returns<Task<Repository>>(_ => { throw new ApiValidationException(response); });
+                    .Returns<Task<Repository>>(_ => { throw new ApiValidationException(response, new SimpleJsonSerializer()); });
                 var client = new RepositoriesClient(connection);
 
                 var exception = await Assert.ThrowsAsync<RepositoryExistsException>(

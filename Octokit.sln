@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Octokit", "Octokit\Octokit.csproj", "{08DD4305-7787-4823-A53F-4D0F725A07F3}"
 EndProject
@@ -49,6 +49,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Octokit.Tests-Portable", "Octokit.Tests\Octokit.Tests-Portable.csproj", "{CBE29DDD-F15C-46CC-A250-E6ECF55BEED4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{DB068FD2-F54C-48EB-A6FD-1AC9EA3F8F57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Octokit.Api", "Octokit.Api\Octokit.Api.csproj", "{28A12AA2-3D92-4A00-8603-FD552685A64E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Octokit.Spi", "Octokit.Spi\Octokit.Spi.csproj", "{66F668A4-26B5-4AE3-B684-93038093FFB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Octokit.Api.Tests", "OctoKit.Api.Tests\Octokit.Api.Tests.csproj", "{EA6CE895-4FAC-431D-BB3F-A2C82D327E42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,6 +106,18 @@ Global
 		{CBE29DDD-F15C-46CC-A250-E6ECF55BEED4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBE29DDD-F15C-46CC-A250-E6ECF55BEED4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBE29DDD-F15C-46CC-A250-E6ECF55BEED4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28A12AA2-3D92-4A00-8603-FD552685A64E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28A12AA2-3D92-4A00-8603-FD552685A64E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28A12AA2-3D92-4A00-8603-FD552685A64E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28A12AA2-3D92-4A00-8603-FD552685A64E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66F668A4-26B5-4AE3-B684-93038093FFB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66F668A4-26B5-4AE3-B684-93038093FFB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66F668A4-26B5-4AE3-B684-93038093FFB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66F668A4-26B5-4AE3-B684-93038093FFB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA6CE895-4FAC-431D-BB3F-A2C82D327E42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA6CE895-4FAC-431D-BB3F-A2C82D327E42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA6CE895-4FAC-431D-BB3F-A2C82D327E42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA6CE895-4FAC-431D-BB3F-A2C82D327E42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

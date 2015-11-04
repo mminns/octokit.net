@@ -19,7 +19,7 @@ namespace Octokit.Tests.Exceptions
                     responseBody,
                     new Dictionary<string, string>(),
                     "application/json");
-                var forbiddenException = new ForbiddenException(response);
+                var forbiddenException = new ForbiddenException(response, new SimpleJsonSerializer());
 
                 Assert.Equal("YOU SHALL NOT PASS!", forbiddenException.ApiError.Message);
             }
@@ -28,7 +28,7 @@ namespace Octokit.Tests.Exceptions
             public void HasDefaultMessage()
             {
                 var response = new Response(HttpStatusCode.Forbidden , null, new Dictionary<string, string>(), "application/json");
-                var forbiddenException = new ForbiddenException(response);
+                var forbiddenException = new ForbiddenException(response, new SimpleJsonSerializer());
 
                 Assert.Equal("Request Forbidden", forbiddenException.Message);
             }

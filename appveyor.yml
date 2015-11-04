@@ -1,7 +1,22 @@
 init:
   - git config --global core.autocrlf input
+environment:
+  access_token:
+    secure: cyvLxdGBSCXY+0B/xaUKTvmFYn8ji/BfI721QMWN5PDnZ57mMPDrIY9qVivwhlhT
 build_script:
-  - cmd: build.cmd BuildApp
-  - cmd: build.cmd UnitTests
-  - cmd: build.cmd ConventionTests
+  - cmd: build.spiapi.cmd BuildApp
+  - cmd: build.spiapi.cmd UnitTests
+  - cmd: build.spiapi.cmd CreatePackages
 test: off
+on_success:
+  - git config --global credential.helper store
+  - git config --global user.email "appveyor@itofinity.co.uk"
+  - git config --global user.name "App Veyor"
+  - git config --global push.default simple
+  - git remote add octokit-mminns https://github.com/mminns/octokit.net.git
+  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+  - git add . -u
+  - git commit -m "Successful CI Build:{build}"
+  - git tag "ci-build-{build}"
+  - git push octokit-mminns spiapi
+  - git push octokit-mminns spiapi --tags

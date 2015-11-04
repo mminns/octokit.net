@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
+using Octokit.Helpers;
 
 namespace Octokit
 {
@@ -24,7 +25,7 @@ namespace Octokit
         /// Retrieves the <see cref="SshKey"/> for the specified id.
         /// </summary>
         /// <param name="user">The login of the user</param>
-        /// <returns>A <see cref="IReadOnlyPagedCollection{SshKey}"/> of <see cref="SshKey"/>.</returns>
+        /// <returns>A <see cref="IReadOnlyPagedCollection{T}"/> of <see cref="SshKey"/>.</returns>
         Task<IReadOnlyList<SshKey>> GetAll(string user);
 
         /// <summary>
