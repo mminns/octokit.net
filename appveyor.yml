@@ -23,6 +23,6 @@ on_success:
 		Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
 		git add . -u
 		git commit -m "Successful CI Build:$env:APPVEYOR_BUILD_NUMBER"
-		git tag "ci-build-$env:APPVEYOR_BUILD_NUMBER"
+		git tag "ci-build-$env:APPVEYOR_BUILD_NUMBE"
 		git push octokit-mminns spiapi
 		git push octokit-mminns spiapi --tags
