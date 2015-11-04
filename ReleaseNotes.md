@@ -1,3 +1,5 @@
+### New in 0.17.0.1 (released TBD)
+
 ### New in 0.17.0.0 (released 2015/11/04)
 * Improved: Added ability to create deploy keys that are read only and can only be used to read repository contents and not write to them - via #915 @haacked
 * Improved: Added `Content` property to `NewTreeItem` to allow specifying content for a tree - via #915 @haacked
